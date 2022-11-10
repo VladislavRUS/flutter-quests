@@ -2,8 +2,8 @@ import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_quests/core/routing/app_router.dart';
-import 'package:flutter_quests/core/utils/get_previous_type.dart';
-import 'package:flutter_quests/core/utils/get_step_type.dart';
+import 'package:flutter_quests/data/models/previous/previous_model.dart';
+import 'package:flutter_quests/data/models/step/step_model.dart';
 import 'package:flutter_quests/data/store/root/root_store.dart';
 import 'package:flutter_quests/data/store/step/step_store.dart';
 import 'package:flutter_quests/ui/screens/create_step/previous_builder/previous_builder.dart';
@@ -71,13 +71,13 @@ class _CreateStepScreenState extends State<CreateStepScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 StepTypeSelector(
-                  stepType: step != null ? getStepType(step) : null,
+                  stepType: step?.type,
                   onStepTypeSelected: _stepStore.onStepTypeSelected,
                 ),
                 if (step != null) ...[
                   StepBuilder(step: step),
                   PreviousTypeSelector(
-                    type: previous != null ? getPreviousType(previous) : null,
+                    type: previous?.type,
                     onTypeSelected: _stepStore.onPreviousTypeSelected,
                   ),
                   if (previous != null) PreviousBuilder(previous: previous),

@@ -3,6 +3,7 @@ import 'package:flutter_quests/data/enums/previous_type.dart';
 import 'package:flutter_quests/data/enums/step_type.dart';
 import 'package:flutter_quests/data/models/previous/branch_previous/branch_previous_model.dart';
 import 'package:flutter_quests/data/models/previous/simple_previous/simple_previous_model.dart';
+import 'package:flutter_quests/data/models/step/select_step/select_step_model.dart';
 import 'package:flutter_quests/data/models/step/step_model.dart';
 import 'package:flutter_quests/data/models/step/text_step/text_step_model.dart';
 import 'package:flutter_quests/data/store/root/root_store.dart';
@@ -31,17 +32,12 @@ abstract class StepStoreBase with Store {
 
   @action
   void onStepTypeSelected(StepType? type) {
-    switch (type) {
-      case StepType.text:
-        {
-          step = TextStepModel();
-          break;
-        }
-      default:
-        {
-          step = null;
-          break;
-        }
+    if (type == StepType.text) {
+      step = TextStepModel();
+    } else if (type == StepType.select) {
+      step = SelectStepModel();
+    } else {
+      step = null;
     }
   }
 
