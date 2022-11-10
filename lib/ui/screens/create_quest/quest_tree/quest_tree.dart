@@ -61,7 +61,7 @@ class QuestTree extends StatelessWidget {
               child: InkWell(
                 onTap: () => _onStepTap(context, step),
                 child: Padding(
-                  padding: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(12),
                   child: Center(
                     child: ConstrainedBox(
                       constraints: const BoxConstraints(

@@ -1,4 +1,4 @@
-import 'package:flutter_quests/data/models/next/next_model.dart';
+import 'package:flutter_quests/data/models/previous/previous_model.dart';
 import 'package:mobx/mobx.dart';
 
 part 'step_model.g.dart';
@@ -11,7 +11,7 @@ abstract class StepModelBase with Store {
   @observable
   String title = '';
   @observable
-  NextModel? next;
+  PreviousModel? previous;
 
   @computed
   bool get isNew => id == null;

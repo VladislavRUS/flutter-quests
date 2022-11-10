@@ -1,8 +1,8 @@
 import 'package:flutter_quests/core/utils/get_id.dart';
-import 'package:flutter_quests/data/enums/next_type.dart';
+import 'package:flutter_quests/data/enums/previous_type.dart';
 import 'package:flutter_quests/data/enums/step_type.dart';
-import 'package:flutter_quests/data/models/next/by_answers_next/by_answers_next_model.dart';
-import 'package:flutter_quests/data/models/next/simple_next/simple_next_model.dart';
+import 'package:flutter_quests/data/models/previous/branch_previous/branch_previous_model.dart';
+import 'package:flutter_quests/data/models/previous/simple_previous/simple_previous_model.dart';
 import 'package:flutter_quests/data/models/step/step_model.dart';
 import 'package:flutter_quests/data/models/step/text_step/text_step_model.dart';
 import 'package:flutter_quests/data/store/root/root_store.dart';
@@ -46,16 +46,16 @@ abstract class StepStoreBase with Store {
   }
 
   @action
-  void onNextTypeSelected(NextType? type) {
+  void onPreviousTypeSelected(PreviousType? type) {
     switch (type) {
-      case NextType.simple:
+      case PreviousType.simple:
         {
-          step!.next = SimpleNextModel();
+          step!.previous = SimplePreviousModel();
           break;
         }
-      case NextType.byAnswers:
+      case PreviousType.branch:
         {
-          step!.next = ByAnswersNextModel();
+          step!.previous = BranchPreviousModel();
           break;
         }
       default:

@@ -1,4 +1,4 @@
-import 'package:flutter_quests/data/models/next/simple_next/simple_next_model.dart';
+import 'package:flutter_quests/data/models/previous/simple_previous/simple_previous_model.dart';
 import 'package:flutter_quests/data/models/step/step_model.dart';
 import 'package:graphview/GraphView.dart';
 import 'package:collection/collection.dart';
@@ -20,14 +20,15 @@ Graph makeGraphFromSteps(List<StepModel> steps) {
   graph.addNodes(nodes);
 
   steps.forEachIndexed((index, step) {
-    if (step.next is SimpleNextModel) {
-      final stepId = (step.next as SimpleNextModel).stepId;
+    if (step.previous is SimplePreviousModel) {
+      final stepId = (step.previous as SimplePreviousModel).stepId;
 
-      final nextStepIndex = steps.indexWhere((element) => element.id == stepId);
+      final previousStepIndex =
+          steps.indexWhere((element) => element.id == stepId);
 
-      if (nextStepIndex != -1) {
-        final sourceNode = nodes[index];
-        final destinationNode = nodes[nextStepIndex];
+      if (previousStepIndex != -1) {
+        final sourceNode = nodes[previousStepIndex];
+        final destinationNode = nodes[index];
 
         edges.add(Edge(sourceNode, destinationNode));
       }

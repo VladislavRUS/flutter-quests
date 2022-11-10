@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_quests/data/models/next/simple_next/simple_next_model.dart';
+import 'package:flutter_quests/data/models/previous/simple_previous/simple_previous_model.dart';
 import 'package:flutter_quests/data/models/step/step_model.dart';
 import 'package:flutter_quests/data/store/root/root_store.dart';
-import 'package:flutter_quests/ui/screens/create_step/next_builder/simple_next_builder/select_step_bottom_sheet/select_step_bottom_sheet.dart';
+import 'package:flutter_quests/ui/screens/create_step/previous_builder/simple_previous_builder/select_step_bottom_sheet/select_step_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
-class SimpleNextBuilder extends StatelessWidget {
-  final SimpleNextModel next;
+class SimplePreviousBuilder extends StatelessWidget {
+  final SimplePreviousModel previous;
 
-  const SimpleNextBuilder({
+  const SimplePreviousBuilder({
     Key? key,
-    required this.next,
+    required this.previous,
   }) : super(key: key);
 
-  StepModel? _getNextStep(BuildContext context) {
+  StepModel? _getPreviousStep(BuildContext context) {
     final quest = context.read<RootStore>().questStore.quest!;
 
-    return next.stepId != null ? quest.getStepById(next.stepId!) : null;
+    return previous.stepId != null ? quest.getStepById(previous.stepId!) : null;
   }
 
-  void _onStepSelected(StepModel nextStep) {
-    next.stepId = nextStep.id;
+  void _onStepSelected(StepModel previousStep) {
+    previous.stepId = previousStep.id;
   }
 
   void _onSelect(BuildContext context) {
@@ -43,12 +43,12 @@ class SimpleNextBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
-      final nextStep = _getNextStep(context);
+      final previousStep = _getPreviousStep(context);
 
       return ElevatedButton(
         onPressed: () => _onSelect(context),
         child: Text(
-          nextStep == null ? 'Выберите следующий шаг' : nextStep.title,
+          previousStep == null ? 'Выберите предыдущий шаг' : previousStep.title,
         ),
       );
     });

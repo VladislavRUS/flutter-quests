@@ -2,15 +2,15 @@ import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_quests/core/routing/app_router.dart';
-import 'package:flutter_quests/core/utils/get_next_type.dart';
+import 'package:flutter_quests/core/utils/get_previous_type.dart';
 import 'package:flutter_quests/core/utils/get_step_type.dart';
 import 'package:flutter_quests/data/store/root/root_store.dart';
 import 'package:flutter_quests/data/store/step/step_store.dart';
-import 'package:flutter_quests/ui/screens/create_step/next_builder/next_builder.dart';
-import 'package:flutter_quests/ui/screens/create_step/next_selector/next_selector.dart';
+import 'package:flutter_quests/ui/screens/create_step/previous_builder/previous_builder.dart';
 import 'package:flutter_quests/ui/screens/create_step/step_builder/step_builder.dart';
 import 'package:provider/provider.dart';
 
+import 'previous_type_selector/previous_type_selector.dart';
 import 'step_type_selector/step_type_selector.dart';
 
 class CreateStepScreen extends StatefulWidget {
@@ -65,7 +65,7 @@ class _CreateStepScreenState extends State<CreateStepScreen> {
         child: Observer(
           builder: (BuildContext context) {
             final step = _stepStore.step;
-            final next = step?.next;
+            final previous = step?.previous;
 
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -76,11 +76,11 @@ class _CreateStepScreenState extends State<CreateStepScreen> {
                 ),
                 if (step != null) ...[
                   StepBuilder(step: step),
-                  NextTypeSelector(
-                    nextType: next != null ? getNextType(next) : null,
-                    onNextTypeSelected: _stepStore.onNextTypeSelected,
+                  PreviousTypeSelector(
+                    type: previous != null ? getPreviousType(previous) : null,
+                    onTypeSelected: _stepStore.onPreviousTypeSelected,
                   ),
-                  if (next != null) NextBuilder(next: next),
+                  if (previous != null) PreviousBuilder(previous: previous),
                 ],
                 if (step?.isNew == true)
                   ElevatedButton(
