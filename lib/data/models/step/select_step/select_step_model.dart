@@ -17,6 +17,11 @@ abstract class SelectStepModelBase extends StepModel with Store {
   }
 
   @action
+  void onDeleteOption(String value) {
+    options.remove(value);
+  }
+
+  @action
   void onAnswerChange(String value) {
     answer = value;
   }
