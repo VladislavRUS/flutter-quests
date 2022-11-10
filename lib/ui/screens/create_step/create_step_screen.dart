@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_quests/core/constants/ui.dart';
 import 'package:flutter_quests/core/routing/app_router.dart';
+import 'package:flutter_quests/data/enums/previous_type.dart';
 import 'package:flutter_quests/data/enums/step_type.dart';
 import 'package:flutter_quests/data/models/previous/previous_model.dart';
 import 'package:flutter_quests/data/models/step/step_model.dart';
+import 'package:flutter_quests/data/store/quest/quest_store.dart';
 import 'package:flutter_quests/data/store/root/root_store.dart';
 import 'package:flutter_quests/data/store/step/step_store.dart';
 import 'package:flutter_quests/ui/screens/create_step/previous_builder/previous_builder.dart';
@@ -14,8 +16,6 @@ import 'package:flutter_quests/ui/widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:flutter_quests/ui/widgets/custom_button/custom_button.dart';
 import 'package:flutter_quests/ui/widgets/custom_select_field/custom_select_field.dart';
 import 'package:provider/provider.dart';
-
-import 'previous_type_selector/previous_type_selector.dart';
 
 class CreateStepScreen extends StatefulWidget {
   final String? stepId;
@@ -31,12 +31,14 @@ class CreateStepScreen extends StatefulWidget {
 
 class _CreateStepScreenState extends State<CreateStepScreen> {
   late StepStore _stepStore;
+  late QuestStore _questStore;
 
   @override
   void initState() {
     super.initState();
 
     _stepStore = context.read<RootStore>().stepStore;
+    _questStore = context.read<RootStore>().questStore;
 
     final stepId = widget.stepId;
 
@@ -76,6 +78,7 @@ class _CreateStepScreenState extends State<CreateStepScreen> {
                 builder: (BuildContext context) {
                   final step = _stepStore.step;
                   final previous = step?.previous;
+                  final questHasSteps = _questStore.quest!.steps.isNotEmpty;
 
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -93,12 +96,24 @@ class _CreateStepScreenState extends State<CreateStepScreen> {
                       ),
                       if (step != null) ...[
                         StepBuilder(step: step),
-                        PreviousTypeSelector(
-                          type: previous?.type,
-                          onTypeSelected: _stepStore.onPreviousTypeSelected,
+                        const SizedBox(
+                          height: UI.formFieldSpacing,
                         ),
-                        if (previous != null)
-                          PreviousBuilder(previous: previous),
+                        if (questHasSteps) ...[
+                          CustomSelectField(
+                            hint: 'Связь с предыдущим шагом',
+                            placeholder: 'Выберите тип предыдущего шага',
+                            value: previous?.type,
+                            options: PreviousType.values,
+                            buildOption: (type) => type.displayString,
+                            onChanged: _stepStore.onPreviousTypeSelected,
+                          ),
+                          const SizedBox(
+                            height: UI.formFieldSpacing,
+                          ),
+                          if (previous != null)
+                            PreviousBuilder(previous: previous),
+                        ]
                       ],
                     ],
                   );
