@@ -5,10 +5,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
+  final Widget? leading;
 
   const CustomAppBar({
     Key? key,
     required this.title,
+    this.leading,
   }) : super(key: key);
 
   @override
@@ -27,21 +29,21 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             right: 0,
             child: SvgPicture.asset(Assets.cloud),
           ),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 22,
-            child: Center(
-              child: Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                  color: ColorPalette.white,
-                ),
+          AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            leading: leading,
+            toolbarHeight: preferredSize.height,
+            title: Text(
+              title,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+                color: ColorPalette.white,
               ),
             ),
-          )
+          ),
         ],
       ),
     );

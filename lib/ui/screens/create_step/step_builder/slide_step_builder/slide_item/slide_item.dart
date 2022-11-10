@@ -11,8 +11,6 @@ class SlideItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text(slide.text),
-    );
+    return Text(slide.text);
   }
 }
