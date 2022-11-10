@@ -22,19 +22,21 @@ class _CreateOptionDialogState extends State<CreateOptionDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.white,
-      child: Container(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextFormField(
-              initialValue: _option,
-              onChanged: _onOptionChange,
-            ),
-            ElevatedButton(onPressed: _onSave, child: const Text('Сохранить'))
-          ],
+    return SafeArea(
+      child: Material(
+        color: Colors.white,
+        child: Container(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextFormField(
+                initialValue: _option,
+                onChanged: _onOptionChange,
+              ),
+              ElevatedButton(onPressed: _onSave, child: const Text('Сохранить'))
+            ],
+          ),
         ),
       ),
     );
