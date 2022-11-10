@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -19,12 +21,24 @@ class SelectStepBuilder extends StatelessWidget {
       builder: (_) => const CreateOptionDialog(),
     );
 
-    if (option != null) {
-      step.onAddOption(option);
+    if (option == null) {
+      return;
+    }
 
-      if (step.options.length == 1) {
-        step.onAnswerChange(option);
-      }
+    if (step.options.contains(option)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Такой ответ уже есть'),
+        ),
+      );
+
+      return;
+    }
+
+    step.onAddOption(option);
+
+    if (step.options.length == 1) {
+      step.onAnswerChange(option);
     }
   }
 
