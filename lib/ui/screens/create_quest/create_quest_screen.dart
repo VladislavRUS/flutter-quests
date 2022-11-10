@@ -23,36 +23,36 @@ class CreateQuestScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final questStore = context.read<RootStore>().questStore;
 
-    return Scaffold(
-      appBar: const CustomAppBar(
-        leading: BackButton(),
-        title: 'Создание квеста',
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Observer(
-            builder: (_) {
-              if (questStore.quest!.steps.isEmpty) {
-                return const Center(
-                  child: NoStepsPlaceholder(),
-                );
-              }
+    return Observer(builder: (_) {
+      final stepsNotEmpty = questStore.quest!.steps.isNotEmpty;
 
-              return QuestTree(
-                quest: questStore.quest!,
-              );
-            },
+      return Scaffold(
+        backgroundColor:
+            stepsNotEmpty ? ColorPalette.concrete : ColorPalette.white,
+        appBar: const CustomAppBar(
+          leading: BackButton(),
+          title: 'Создание квеста',
+        ),
+        body: SafeArea(
+          child: stepsNotEmpty
+              ? QuestTree(
+                  quest: questStore.quest!,
+                )
+              : const Padding(
+                  padding: EdgeInsets.all(16),
+                  child: Center(
+                    child: NoStepsPlaceholder(),
+                  ),
+                ),
+        ),
+        floatingActionButton: CustomFloatingActionButton(
+          onTap: () => _onAdd(context),
+          child: const Icon(
+            Icons.add,
+            color: ColorPalette.white,
           ),
         ),
-      ),
-      floatingActionButton: CustomFloatingActionButton(
-        onTap: () => _onAdd(context),
-        child: const Icon(
-          Icons.add,
-          color: ColorPalette.white,
-        ),
-      ),
-    );
+      );
+    });
   }
 }

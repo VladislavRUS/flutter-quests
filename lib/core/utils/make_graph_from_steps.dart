@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:flutter_quests/core/theme/color_palette.dart';
 import 'package:flutter_quests/data/models/previous/simple_previous/simple_previous_model.dart';
 import 'package:flutter_quests/data/models/step/step_model.dart';
 import 'package:graphview/GraphView.dart';
@@ -19,6 +22,10 @@ Graph makeGraphFromSteps(List<StepModel> steps) {
 
   graph.addNodes(nodes);
 
+  final paint = Paint();
+  paint.color = ColorPalette.shipGray;
+  paint.strokeWidth = 3;
+
   steps.forEachIndexed((index, step) {
     if (step.previous is SimplePreviousModel) {
       final stepId = (step.previous as SimplePreviousModel).stepId;
@@ -30,7 +37,7 @@ Graph makeGraphFromSteps(List<StepModel> steps) {
         final sourceNode = nodes[previousStepIndex];
         final destinationNode = nodes[index];
 
-        edges.add(Edge(sourceNode, destinationNode));
+        edges.add(Edge(sourceNode, destinationNode, paint: paint));
       }
     }
   });
