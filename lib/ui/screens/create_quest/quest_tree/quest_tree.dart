@@ -89,7 +89,7 @@ class QuestTree extends StatelessWidget {
                   return Text(
                     step.title,
                     style: const TextStyle(
-                      fontSize: 20,
+                      fontSize: 18,
                       fontWeight: FontWeight.w700,
                       color: ColorPalette.shipGray,
                     ),

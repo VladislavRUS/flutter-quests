@@ -23,8 +23,8 @@ Graph makeGraphFromSteps(List<StepModel> steps) {
   graph.addNodes(nodes);
 
   final paint = Paint();
-  paint.color = ColorPalette.shipGray;
-  paint.strokeWidth = 3;
+  paint.color = ColorPalette.regentGray;
+  paint.strokeWidth = 1;
 
   steps.forEachIndexed((index, step) {
     if (step.previous is SimplePreviousModel) {
