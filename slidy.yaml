@@ -1,0 +1,19 @@
+slidy: '1'
+
+scripts:
+  init:
+    steps:
+      - name: 'Get dependencies'
+        run: slidy run get
+
+      - name: 'Run builder'
+        run: slidy run runner
+
+  runner:
+    run: fvm flutter pub run build_runner build --delete-conflicting-outputs
+
+  get:
+    run: fvm flutter pub get
+
+  clean:
+    run: fvm flutter clean
