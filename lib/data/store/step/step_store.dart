@@ -4,6 +4,7 @@ import 'package:flutter_quests/data/enums/step_type.dart';
 import 'package:flutter_quests/data/models/previous/branch_previous/branch_previous_model.dart';
 import 'package:flutter_quests/data/models/previous/simple_previous/simple_previous_model.dart';
 import 'package:flutter_quests/data/models/step/select_step/select_step_model.dart';
+import 'package:flutter_quests/data/models/step/slide_step/slide_step_model.dart';
 import 'package:flutter_quests/data/models/step/step_model.dart';
 import 'package:flutter_quests/data/models/step/text_step/text_step_model.dart';
 import 'package:flutter_quests/data/store/root/root_store.dart';
@@ -32,12 +33,18 @@ abstract class StepStoreBase with Store {
 
   @action
   void onStepTypeSelected(StepType? type) {
-    if (type == StepType.text) {
-      step = TextStepModel();
-    } else if (type == StepType.select) {
-      step = SelectStepModel();
-    } else {
-      step = null;
+    switch (type) {
+      case StepType.text:
+        step = TextStepModel();
+        break;
+      case StepType.select:
+        step = SelectStepModel();
+        break;
+      case StepType.slide:
+        step = SlideStepModel();
+        break;
+      default:
+        step = null;
     }
   }
 
@@ -45,20 +52,14 @@ abstract class StepStoreBase with Store {
   void onPreviousTypeSelected(PreviousType? type) {
     switch (type) {
       case PreviousType.simple:
-        {
-          step!.previous = SimplePreviousModel();
-          break;
-        }
+        step!.previous = SimplePreviousModel();
+        break;
       case PreviousType.branch:
-        {
-          step!.previous = BranchPreviousModel();
-          break;
-        }
+        step!.previous = BranchPreviousModel();
+        break;
       default:
-        {
-          step = null;
-          break;
-        }
+        step = null;
+        break;
     }
   }
 

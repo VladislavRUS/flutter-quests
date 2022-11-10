@@ -1,6 +1,7 @@
 import 'package:flutter_quests/data/enums/step_type.dart';
 import 'package:flutter_quests/data/models/previous/previous_model.dart';
 import 'package:flutter_quests/data/models/step/select_step/select_step_model.dart';
+import 'package:flutter_quests/data/models/step/slide_step/slide_step_model.dart';
 import 'package:mobx/mobx.dart';
 
 import 'text_step/text_step_model.dart';
@@ -28,12 +29,15 @@ abstract class StepModelBase with Store {
 
 extension StepTypeExtension on StepModel {
   StepType? get type {
-    if (this is TextStepModel) {
-      return StepType.text;
-    } else if (this is SelectStepModel) {
-      return StepType.select;
+    switch (runtimeType) {
+      case TextStepModel:
+        return StepType.text;
+      case SelectStepModel:
+        return StepType.select;
+      case SlideStepModel:
+        return StepType.slide;
+      default:
+        return null;
     }
-
-    return null;
   }
 }

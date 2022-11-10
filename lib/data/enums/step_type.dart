@@ -1,6 +1,7 @@
 enum StepType {
   text,
   select,
+  slide,
 }
 
 extension StepTypeDisplayString on StepType {
@@ -10,6 +11,8 @@ extension StepTypeDisplayString on StepType {
         return 'Текстовый вопрос';
       case StepType.select:
         return 'Выбор ответа';
+      case StepType.slide:
+        return 'Слайды';
     }
   }
 }
