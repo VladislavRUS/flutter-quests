@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_quests/core/constants/ui.dart';
 import 'package:flutter_quests/data/models/step/text_step/text_step_model.dart';
+import 'package:flutter_quests/ui/widgets/custom_text_field/custom_text_field.dart';
 
 class TextStepBuilder extends StatelessWidget {
   final TextStepModel step;
@@ -13,15 +15,20 @@ class TextStepBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TextFormField(
-          initialValue: step.question,
+        CustomTextField(
+          hint: 'Вопрос',
+          placeholder: 'Введите вопрос',
+          value: step.question,
           onChanged: step.onQuestionChange,
-          decoration: const InputDecoration(hintText: 'Введите вопрос'),
         ),
-        TextFormField(
-          initialValue: step.answer,
+        const SizedBox(
+          height: UI.formFieldSpacing,
+        ),
+        CustomTextField(
+          hint: 'Ответ',
+          placeholder: 'Введите правильный ответ',
+          value: step.answer,
           onChanged: step.onAnswerChange,
-          decoration: const InputDecoration(hintText: 'Введите ответ'),
         )
       ],
     );

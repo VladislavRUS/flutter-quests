@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quests/core/routing/app_router.dart';
 import 'package:flutter_quests/core/routing/app_routes.dart';
-import 'package:flutter_quests/core/theme/color_palette.dart';
 import 'package:flutter_quests/data/store/root/root_store.dart';
 import 'package:flutter_quests/ui/screens/home/greeting/greeting.dart';
 import 'package:flutter_quests/ui/widgets/custom_button/custom_button.dart';
@@ -23,7 +22,6 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorPalette.concrete,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
