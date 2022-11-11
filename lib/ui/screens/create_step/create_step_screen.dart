@@ -88,18 +88,18 @@ class _CreateStepScreenState extends State<CreateStepScreen> {
         ],
       ),
       body: SafeArea(
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            SingleChildScrollView(
-              padding: const EdgeInsets.all(24),
-              child: Observer(
-                builder: (BuildContext context) {
-                  final step = _stepStore.step;
-                  final previous = step?.previous;
-                  final questHasSteps = _questStore.quest!.steps.isNotEmpty;
+        child: Observer(
+          builder: (_) {
+            final step = _stepStore.step;
+            final previous = step?.previous;
+            final questHasSteps = _questStore.quest!.steps.isNotEmpty;
 
-                  return Column(
+            return Stack(
+              fit: StackFit.expand,
+              children: [
+                SingleChildScrollView(
+                  padding: const EdgeInsets.all(24),
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       CustomSelectField(
@@ -135,26 +135,26 @@ class _CreateStepScreenState extends State<CreateStepScreen> {
                         ]
                       ],
                     ],
-                  );
-                },
-              ),
-            ),
-            KeyboardVisibilityBuilder(builder: (_, keyboardVisible) {
-              if (keyboardVisible || widget.stepId != null) {
-                return const SizedBox.shrink();
-              }
-
-              return Positioned(
-                left: 16,
-                right: 16,
-                bottom: 0,
-                child: CustomButton(
-                  text: 'Добавить шаг',
-                  onTap: () => _onSave(context),
+                  ),
                 ),
-              );
-            })
-          ],
+                KeyboardVisibilityBuilder(builder: (_, keyboardVisible) {
+                  if (keyboardVisible || !_isNew || step == null) {
+                    return const SizedBox.shrink();
+                  }
+
+                  return Positioned(
+                    left: 16,
+                    right: 16,
+                    bottom: 0,
+                    child: CustomButton(
+                      text: 'Добавить шаг',
+                      onTap: () => _onSave(context),
+                    ),
+                  );
+                })
+              ],
+            );
+          },
         ),
       ),
     );
