@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_quests/core/theme/color_palette.dart';
 import 'package:flutter_quests/ui/widgets/custom_form_field/custom_form_field.dart';
 
@@ -7,6 +8,8 @@ class CustomTextField extends StatelessWidget {
   final String placeholder;
   final String value;
   final ValueChanged<String> onChanged;
+  final TextInputType keyboardType;
+  final List<TextInputFormatter>? inputFormatters;
 
   const CustomTextField({
     Key? key,
@@ -14,6 +17,8 @@ class CustomTextField extends StatelessWidget {
     this.placeholder = '',
     required this.value,
     required this.onChanged,
+    this.keyboardType = TextInputType.text,
+    this.inputFormatters,
   }) : super(key: key);
 
   @override
@@ -23,6 +28,8 @@ class CustomTextField extends StatelessWidget {
       child: TextFormField(
         initialValue: value,
         onChanged: onChanged,
+        keyboardType: keyboardType,
+        inputFormatters: inputFormatters,
         decoration: InputDecoration.collapsed(
             hintText: placeholder,
             hintStyle: const TextStyle(

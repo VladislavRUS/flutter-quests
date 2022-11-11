@@ -40,15 +40,6 @@ class _CreateOptionDialogState extends State<CreateOptionDialog> {
       appBar: AppBar(
         backgroundColor: ColorPalette.white,
         elevation: 0,
-        // actions: [
-        //   IconButton(
-        //     onPressed: () => _onSave(context),
-        //     icon: const Icon(
-        //       Icons.save,
-        //       color: ColorPalette.grayChateau,
-        //     ),
-        //   )
-        // ],
         leading: IconButton(
           icon: SvgPicture.asset(Assets.dismissIcon),
           onPressed: () => _onClose(context),
