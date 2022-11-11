@@ -17,6 +17,8 @@ class TextStepBuilder extends StatelessWidget {
     required this.step,
   }) : super(key: key);
 
+  final _maxHints = 2;
+
   void _onAddHint(BuildContext context) async {
     final hint = await showCupertinoModalBottomSheet<HintModel>(
       context: context,
@@ -53,14 +55,16 @@ class TextStepBuilder extends StatelessWidget {
           const SizedBox(
             height: UI.formFieldSpacing,
           ),
-          CustomButton(
-            onTap: () => _onAddHint(context),
-            text: 'Добавить подсказку',
-            color: CustomButtonColor.secondary,
-          ),
-          const SizedBox(
-            height: UI.formFieldSpacing,
-          ),
+          if (step.hints.length < _maxHints) ...[
+            CustomButton(
+              onTap: () => _onAddHint(context),
+              text: 'Добавить подсказку',
+              color: CustomButtonColor.secondary,
+            ),
+            const SizedBox(
+              height: UI.formFieldSpacing,
+            ),
+          ],
           ListView.separated(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),

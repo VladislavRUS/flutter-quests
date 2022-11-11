@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_quests/core/constants/assets.dart';
 import 'package:flutter_quests/core/constants/ui.dart';
 import 'package:flutter_quests/core/theme/color_palette.dart';
@@ -24,7 +23,7 @@ class _CreateHintDialogState extends State<CreateHintDialog> {
   String _text = '';
   String _seconds = '';
 
-  bool get _disabled => _text.isEmpty || _seconds.isEmpty;
+  bool get _disabled => _text.trim().isEmpty || _seconds.isEmpty;
 
   void _onSave(BuildContext context) {
     final hint = HintModel();
@@ -75,31 +74,27 @@ class _CreateHintDialogState extends State<CreateHintDialog> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
-          child: Observer(
-            builder: (_) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  CustomTextField(
-                    value: _text,
-                    onChanged: _onTextChange,
-                    hint: 'Подсказка',
-                    placeholder: 'Введите подсказку',
-                  ),
-                  const SizedBox(
-                    height: UI.formFieldSpacing,
-                  ),
-                  CustomTextField(
-                    value: _seconds,
-                    onChanged: _onSecondsChange,
-                    keyboardType: TextInputType.number,
-                    hint: 'Время, сек.',
-                    placeholder: 'Введите время',
-                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  )
-                ],
-              );
-            },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              CustomTextField(
+                value: _text,
+                onChanged: _onTextChange,
+                hint: 'Подсказка',
+                placeholder: 'Введите подсказку',
+              ),
+              const SizedBox(
+                height: UI.formFieldSpacing,
+              ),
+              CustomTextField(
+                value: _seconds,
+                onChanged: _onSecondsChange,
+                keyboardType: TextInputType.number,
+                hint: 'Время, сек.',
+                placeholder: 'Введите время',
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              )
+            ],
           ),
         ),
       ),
