@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_quests/core/constants/ui.dart';
-import 'package:flutter_quests/core/routing/app_router.dart';
+import 'package:flutter_quests/core/theme/color_palette.dart';
 import 'package:flutter_quests/data/enums/previous_type.dart';
 import 'package:flutter_quests/data/enums/step_type.dart';
 import 'package:flutter_quests/data/models/previous/previous_model.dart';
@@ -34,6 +34,8 @@ class _CreateStepScreenState extends State<CreateStepScreen> {
   late StepStore _stepStore;
   late QuestStore _questStore;
 
+  bool get _isNew => widget.stepId == null;
+
   @override
   void initState() {
     super.initState();
@@ -59,15 +61,31 @@ class _CreateStepScreenState extends State<CreateStepScreen> {
     final stepStore = context.read<RootStore>().stepStore;
     stepStore.onSaveStep();
 
-    final appRouter = context.read<AppRouter>();
-    appRouter.pop();
+    Navigator.of(context).pop();
+  }
+
+  void _onDelete(BuildContext context) {
+    final stepStore = context.read<RootStore>().stepStore;
+    stepStore.onRemoveStep();
+
+    Navigator.of(context).pop();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: '${widget.stepId == null ? 'Создание' : 'Редактирование'} шага',
+        title: '${_isNew ? 'Создание' : 'Редактирование'} шага',
+        actions: [
+          if (!_isNew)
+            IconButton(
+              onPressed: () => _onDelete(context),
+              icon: const Icon(
+                Icons.delete,
+                color: ColorPalette.white,
+              ),
+            )
+        ],
       ),
       body: SafeArea(
         child: Stack(

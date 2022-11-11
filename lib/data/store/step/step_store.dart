@@ -77,6 +77,12 @@ abstract class StepStoreBase with Store {
   }
 
   @action
+  void onRemoveStep() {
+    rootStore.questStore.removeStep(step!);
+    clear();
+  }
+
+  @action
   void clear() {
     step = null;
   }

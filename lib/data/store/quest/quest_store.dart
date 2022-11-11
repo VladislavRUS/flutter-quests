@@ -24,4 +24,9 @@ abstract class QuestStoreBase with Store {
   void addStep(StepModel step) {
     quest?.steps.add(step);
   }
+
+  @action
+  void removeStep(StepModel step) {
+    quest?.steps.remove(step);
+  }
 }
