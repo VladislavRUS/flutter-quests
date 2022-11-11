@@ -94,6 +94,7 @@ class _CreateSlideDialogState extends State<CreateSlideDialog> {
                   TextFormField(
                     initialValue: _slide.text,
                     onChanged: _slide.onTextChange,
+                    autofocus: true,
                     minLines: 3,
                     maxLines: null,
                     keyboardType: TextInputType.text,

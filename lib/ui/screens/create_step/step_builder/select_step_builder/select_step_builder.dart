@@ -8,6 +8,7 @@ import 'package:flutter_quests/data/models/step/select_step/select_step_model.da
 import 'package:flutter_quests/ui/screens/create_step/step_builder/select_step_builder/create_option_dialog/create_option_dialog.dart';
 import 'package:flutter_quests/ui/screens/create_step/step_builder/select_step_builder/select_option_item/select_option_item.dart';
 import 'package:flutter_quests/ui/widgets/custom_button/custom_button.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class SelectStepBuilder extends StatelessWidget {
   final SelectStepModel step;
@@ -18,8 +19,7 @@ class SelectStepBuilder extends StatelessWidget {
   }) : super(key: key);
 
   void _onAdd(BuildContext context) async {
-    final option = await showCupertinoDialog<String>(
-      barrierDismissible: true,
+    final option = await showCupertinoModalBottomSheet<String>(
       context: context,
       builder: (_) => const CreateOptionDialog(),
     );

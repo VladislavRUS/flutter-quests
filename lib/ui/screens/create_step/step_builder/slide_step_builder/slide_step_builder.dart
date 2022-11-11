@@ -7,6 +7,7 @@ import 'package:flutter_quests/data/models/step/slide_step/slide_step_model.dart
 import 'package:flutter_quests/ui/screens/create_step/step_builder/slide_step_builder/create_slide_dialog/create_slide_dialog.dart';
 import 'package:flutter_quests/ui/screens/create_step/step_builder/slide_step_builder/slide_item/slide_item.dart';
 import 'package:flutter_quests/ui/widgets/custom_button/custom_button.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class SlideStepBuilder extends StatelessWidget {
   final SlideStepModel step;
@@ -17,7 +18,7 @@ class SlideStepBuilder extends StatelessWidget {
   }) : super(key: key);
 
   void _onAdd(BuildContext context) async {
-    final slide = await showCupertinoModalPopup(
+    final slide = await showCupertinoModalBottomSheet(
       context: context,
       builder: (_) => const CreateSlideDialog(),
     );
@@ -28,7 +29,7 @@ class SlideStepBuilder extends StatelessWidget {
   }
 
   void _onEdit(BuildContext context, SlideModel slide) async {
-    await showCupertinoModalPopup(
+    await showCupertinoModalBottomSheet(
       context: context,
       builder: (_) => CreateSlideDialog(
         slide: slide,
