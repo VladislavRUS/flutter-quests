@@ -37,7 +37,7 @@ class SlideItem extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.only(top: 14),
                         child: Text(
-                          slide.text,
+                          slide.text.isEmpty ? '<Без текста>' : slide.text,
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w700,
