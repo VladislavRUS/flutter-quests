@@ -1,5 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_quests/core/constants/ui.dart';
 import 'package:flutter_quests/core/routing/app_router.dart';
@@ -120,8 +121,12 @@ class _CreateStepScreenState extends State<CreateStepScreen> {
                 },
               ),
             ),
-            if (widget.stepId == null)
-              Positioned(
+            KeyboardVisibilityBuilder(builder: (_, keyboardVisible) {
+              if (keyboardVisible || widget.stepId != null) {
+                return const SizedBox.shrink();
+              }
+
+              return Positioned(
                 left: 16,
                 right: 16,
                 bottom: 0,
@@ -129,7 +134,8 @@ class _CreateStepScreenState extends State<CreateStepScreen> {
                   text: 'Добавить шаг',
                   onTap: () => _onSave(context),
                 ),
-              )
+              );
+            })
           ],
         ),
       ),

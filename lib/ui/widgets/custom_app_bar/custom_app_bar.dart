@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quests/core/constants/assets.dart';
+import 'package:flutter_quests/core/constants/ui.dart';
 import 'package:flutter_quests/core/theme/color_palette.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -50,5 +51,5 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(64);
+  Size get preferredSize => const Size.fromHeight(UI.appBarHeight);
 }

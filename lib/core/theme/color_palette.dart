@@ -10,4 +10,6 @@ class ColorPalette {
   static const Color silver = Color(0xffC4C4C4);
   static const Color manatee = Color(0xff9193A5);
   static const Color regentGray = Color(0xff818C99);
+  static const Color wildSand = Color(0xffF5F5F5);
+  static const Color grayChateau = Color(0xff99A2AD);
 }
