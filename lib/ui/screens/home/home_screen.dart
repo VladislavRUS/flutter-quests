@@ -17,7 +17,11 @@ class HomeScreen extends StatelessWidget {
     appRouter.pushNamed(AppRoutes.createQuest);
   }
 
-  void _onPass() {}
+  void _onPass(BuildContext context) {
+    final appRouter = context.read<AppRouter>();
+
+    appRouter.pushNamed(AppRoutes.quests);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +33,7 @@ class HomeScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Expanded(child: Greeting()),
-              CustomButton(onTap: _onPass, text: 'Пройти квест'),
+              CustomButton(onTap: () => _onPass(context), text: 'Пройти квест'),
               const SizedBox(
                 height: 11,
               ),

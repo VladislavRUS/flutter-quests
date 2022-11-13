@@ -6,13 +6,13 @@ import 'simple_previous/simple_previous_model.dart';
 abstract class PreviousModel {}
 
 extension PreviousTypeExtension on PreviousModel {
-  PreviousType? get type {
+  PreviousType get type {
     if (this is SimplePreviousModel) {
       return PreviousType.simple;
     } else if (this is BranchPreviousModel) {
       return PreviousType.branch;
     }
 
-    return null;
+    throw Exception('Unsupported type');
   }
 }

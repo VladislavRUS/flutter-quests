@@ -3,6 +3,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter_quests/ui/screens/create_quest/create_quest_screen.dart';
 import 'package:flutter_quests/ui/screens/create_step/create_step_screen.dart';
 import 'package:flutter_quests/ui/screens/home/home_screen.dart';
+import 'package:flutter_quests/ui/screens/quests/quests_screen.dart';
 
 import 'app_routes.dart';
 
@@ -23,6 +24,10 @@ part 'app_router.gr.dart';
     AutoRoute(
       page: CreateStepScreen,
       path: AppRoutes.createStep,
+    ),
+    AutoRoute(
+      page: QuestsScreen,
+      path: AppRoutes.quests,
     ),
   ],
 )

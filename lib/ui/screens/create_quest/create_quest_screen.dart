@@ -19,6 +19,19 @@ class CreateQuestScreen extends StatelessWidget {
     appRouter.pushNamed(AppRoutes.createStep);
   }
 
+  void _onSave(BuildContext context) async {
+    final appRouter = context.read<AppRouter>();
+
+    final rootStore = context.read<RootStore>();
+    final questsStore = rootStore.questsStore;
+    final questStore = rootStore.questStore;
+
+    await questsStore.saveQuest(questStore.quest!);
+
+    appRouter.pop();
+    appRouter.pushNamed(AppRoutes.quests);
+  }
+
   @override
   Widget build(BuildContext context) {
     final questStore = context.read<RootStore>().questStore;
@@ -29,9 +42,19 @@ class CreateQuestScreen extends StatelessWidget {
       return Scaffold(
         backgroundColor:
             stepsNotEmpty ? ColorPalette.concrete : ColorPalette.white,
-        appBar: const CustomAppBar(
-          leading: BackButton(),
+        appBar: CustomAppBar(
+          leading: const BackButton(),
           title: 'Создание квеста',
+          actions: [
+            if (stepsNotEmpty)
+              IconButton(
+                onPressed: () => _onSave(context),
+                icon: const Icon(
+                  Icons.save,
+                  color: ColorPalette.white,
+                ),
+              )
+          ],
         ),
         body: SafeArea(
           child: stepsNotEmpty

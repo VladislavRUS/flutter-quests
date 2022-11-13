@@ -1,11 +1,10 @@
-import 'package:flutter_quests/data/models/step/step_model.dart';
 import 'package:mobx/mobx.dart';
 
 part 'hint_model.g.dart';
 
 class HintModel = HintModelBase with _$HintModel;
 
-abstract class HintModelBase extends StepModel with Store {
+abstract class HintModelBase with Store {
   @observable
   String text = '';
   @observable

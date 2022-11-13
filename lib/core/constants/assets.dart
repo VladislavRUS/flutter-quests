@@ -11,4 +11,5 @@ class Assets {
   static const removeIcon = 'assets/icons/remove.svg';
   static const pictureIcon = 'assets/icons/picture.svg';
   static const sendIcon = 'assets/icons/send.svg';
+  static const replyIcon = 'assets/icons/reply.svg';
 }

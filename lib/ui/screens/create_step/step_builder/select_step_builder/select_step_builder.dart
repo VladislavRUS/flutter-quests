@@ -1,6 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_quests/core/constants/ui.dart';
@@ -29,6 +26,7 @@ class SelectStepBuilder extends StatelessWidget {
     }
 
     if (step.options.contains(option)) {
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Такой ответ уже есть'),
@@ -39,10 +37,6 @@ class SelectStepBuilder extends StatelessWidget {
     }
 
     step.onAddOption(option);
-
-    if (step.options.length == 1) {
-      step.onAnswerChange(option);
-    }
   }
 
   @override
@@ -68,8 +62,6 @@ class SelectStepBuilder extends StatelessWidget {
                   return Observer(
                     builder: (_) => SelectOptionItem(
                       option: option,
-                      isCorrect: step.answer == option,
-                      onTap: step.onAnswerChange,
                       onDelete: step.onDeleteOption,
                     ),
                   );

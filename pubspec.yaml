@@ -43,6 +43,10 @@ dependencies:
   modal_bottom_sheet: ^2.1.2
   image_picker: ^0.8.6
   flutter_keyboard_visibility: ^5.4.0
+  file_picker: ^5.2.2
+  universal_io: ^2.0.4
+  share_plus: ^6.2.0
+  shared_preferences: ^2.0.15
 
 dev_dependencies:
   flutter_test:
@@ -67,6 +71,7 @@ flutter:
     - assets/fonts/
     - assets/images/
     - assets/icons/
+    - assets/quests/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

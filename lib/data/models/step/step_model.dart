@@ -28,16 +28,15 @@ abstract class StepModelBase with Store {
 }
 
 extension StepTypeExtension on StepModel {
-  StepType? get type {
-    switch (runtimeType) {
-      case TextStepModel:
-        return StepType.text;
-      case SelectStepModel:
-        return StepType.select;
-      case SlideStepModel:
-        return StepType.slide;
-      default:
-        return null;
+  StepType get type {
+    if (this is TextStepModel) {
+      return StepType.text;
+    } else if (this is SelectStepModel) {
+      return StepType.select;
+    } else if (this is SlideStepModel) {
+      return StepType.slide;
     }
+
+    throw Exception('Unsupported type');
   }
 }

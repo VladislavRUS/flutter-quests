@@ -4,7 +4,9 @@ import 'package:provider/provider.dart';
 import 'core/routing/app_router.dart';
 import 'data/store/root/root_store.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(MyApp());
 }
 

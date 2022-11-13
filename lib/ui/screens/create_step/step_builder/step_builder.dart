@@ -20,8 +20,6 @@ class StepBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _step = step;
-
     return Column(
       children: [
         Observer(
@@ -35,11 +33,12 @@ class StepBuilder extends StatelessWidget {
         const SizedBox(
           height: UI.formFieldSpacing,
         ),
-        if (_step is TextStepModel) TextStepBuilder(step: _step),
-        if (_step is SelectStepModel) SelectStepBuilder(step: _step),
-        if (_step is SlideStepModel)
+        if (step is TextStepModel) TextStepBuilder(step: step as TextStepModel),
+        if (step is SelectStepModel)
+          SelectStepBuilder(step: step as SelectStepModel),
+        if (step is SlideStepModel)
           SlideStepBuilder(
-            step: _step,
+            step: step as SlideStepModel,
           ),
       ],
     );
