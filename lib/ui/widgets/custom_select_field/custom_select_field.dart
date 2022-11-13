@@ -27,7 +27,7 @@ class CustomSelectField<T> extends StatelessWidget {
       return '';
     }
 
-    return buildOption(value!);
+    return buildOption(value as T);
   }
 
   void _onTap(BuildContext context) async {
