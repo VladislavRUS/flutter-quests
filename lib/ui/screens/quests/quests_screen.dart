@@ -1,12 +1,18 @@
+import 'dart:convert';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_quests/core/constants/ui.dart';
+import 'package:flutter_quests/core/utils/get_quest_file_title_description.dart';
+import 'package:flutter_quests/core/utils/write_file.dart';
+import 'package:flutter_quests/data/mappers/quest_mapper.dart';
 import 'package:flutter_quests/data/models/quest/quest_model.dart';
 import 'package:flutter_quests/data/store/root/root_store.dart';
 import 'package:flutter_quests/ui/widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:flutter_quests/ui/widgets/custom_button/custom_button.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:universal_io/io.dart';
 
 import 'quest_card/quest_card.dart';
@@ -52,8 +58,19 @@ class _QuestsScreenState extends State<QuestsScreen> {
     print(quest);
   }
 
-  void _onShare(BuildContext context, QuestModel quest) {
-    print(quest);
+  void _onShare(BuildContext context, QuestModel quest) async {
+    final questFileTitleDescription = getQuestFileTitleDescription(quest);
+
+    final fileName = '${questFileTitleDescription.item1}.json';
+
+    final path =
+        await writeFile(fileName, jsonEncode(QuestMapper.toJson(quest)));
+
+    await Share.shareXFiles(
+      [XFile(path)],
+      text: questFileTitleDescription.item1,
+      subject: questFileTitleDescription.item2,
+    );
   }
 
   @override

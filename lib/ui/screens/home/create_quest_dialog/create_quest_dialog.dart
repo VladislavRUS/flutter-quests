@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_quests/core/constants/assets.dart';
 import 'package:flutter_quests/core/constants/ui.dart';
 import 'package:flutter_quests/core/theme/color_palette.dart';
@@ -69,39 +68,35 @@ class _CreateQuestDialogState extends State<CreateQuestDialog> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
-          child: Observer(
-            builder: (_) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  CustomTextField(
-                    hint: 'Название квеста',
-                    placeholder: 'Введите название квеста',
-                    value: _title,
-                    onChanged: _onTitleChange,
-                    autofocus: true,
-                  ),
-                  const SizedBox(
-                    height: UI.formFieldSpacing,
-                  ),
-                  CustomTextField(
-                    hint: 'Описание квеста',
-                    placeholder: 'Введите описание квеста',
-                    value: _description,
-                    onChanged: _onDescriptionChange,
-                  ),
-                  const Spacer(),
-                  CustomDisabled(
-                    disabled: _isDisabled,
-                    child: CustomButton(
-                      onTap: () => _onSave(context),
-                      text: 'Сохранить',
-                      color: CustomButtonColor.secondary,
-                    ),
-                  )
-                ],
-              );
-            },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              CustomTextField(
+                hint: 'Название квеста',
+                placeholder: 'Введите название квеста',
+                value: _title,
+                onChanged: _onTitleChange,
+                autofocus: true,
+              ),
+              const SizedBox(
+                height: UI.formFieldSpacing,
+              ),
+              CustomTextField(
+                hint: 'Описание квеста',
+                placeholder: 'Введите описание квеста',
+                value: _description,
+                onChanged: _onDescriptionChange,
+              ),
+              const Spacer(),
+              CustomDisabled(
+                disabled: _isDisabled,
+                child: CustomButton(
+                  onTap: () => _onSave(context),
+                  text: 'Сохранить',
+                  color: CustomButtonColor.secondary,
+                ),
+              )
+            ],
           ),
         ),
       ),

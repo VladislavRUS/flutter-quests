@@ -47,6 +47,7 @@ dependencies:
   universal_io: ^2.0.4
   share_plus: ^6.2.0
   shared_preferences: ^2.0.15
+  translit: ^2.0.0
 
 dev_dependencies:
   flutter_test:
