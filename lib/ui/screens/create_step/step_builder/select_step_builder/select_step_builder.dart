@@ -59,11 +59,9 @@ class SelectStepBuilder extends StatelessWidget {
                 itemBuilder: (_, index) {
                   final option = step.options[index];
 
-                  return Observer(
-                    builder: (_) => SelectOptionItem(
-                      option: option,
-                      onDelete: step.onDeleteOption,
-                    ),
+                  return SelectOptionItem(
+                    option: option,
+                    onDelete: step.onDeleteOption,
                   );
                 },
                 separatorBuilder: (_, __) => const SizedBox(

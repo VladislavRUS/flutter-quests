@@ -15,6 +15,7 @@ import 'package:flutter_quests/ui/screens/create_step/previous_builder/previous_
 import 'package:flutter_quests/ui/screens/create_step/step_builder/step_builder.dart';
 import 'package:flutter_quests/ui/widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:flutter_quests/ui/widgets/custom_button/custom_button.dart';
+import 'package:flutter_quests/ui/widgets/custom_disabled/custom_disabled.dart';
 import 'package:flutter_quests/ui/widgets/custom_select_field/custom_select_field.dart';
 import 'package:provider/provider.dart';
 
@@ -146,9 +147,14 @@ class _CreateStepScreenState extends State<CreateStepScreen> {
                     left: 16,
                     right: 16,
                     bottom: 0,
-                    child: CustomButton(
-                      text: 'Добавить шаг',
-                      onTap: () => _onSave(context),
+                    child: Observer(
+                      builder: (_) => CustomDisabled(
+                        disabled: step.title.isEmpty,
+                        child: CustomButton(
+                          text: 'Сохранить',
+                          onTap: () => _onSave(context),
+                        ),
+                      ),
                     ),
                   );
                 })
