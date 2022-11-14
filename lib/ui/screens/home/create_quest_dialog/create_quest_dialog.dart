@@ -93,7 +93,6 @@ class _CreateQuestDialogState extends State<CreateQuestDialog> {
                 child: CustomButton(
                   onTap: () => _onSave(context),
                   text: 'Сохранить',
-                  color: CustomButtonColor.secondary,
                 ),
               )
             ],

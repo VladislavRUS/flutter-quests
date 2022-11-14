@@ -4,6 +4,8 @@ import 'package:flutter_quests/ui/screens/create_quest/create_quest_screen.dart'
 import 'package:flutter_quests/ui/screens/create_step/create_step_screen.dart';
 import 'package:flutter_quests/ui/screens/home/home_screen.dart';
 import 'package:flutter_quests/ui/screens/quests/quests_screen.dart';
+import 'package:flutter_quests/ui/screens/survey/survey_screen.dart';
+import 'package:flutter_quests/ui/screens/survey_finished/survey_finished_screen.dart';
 
 import 'app_routes.dart';
 
@@ -28,6 +30,14 @@ part 'app_router.gr.dart';
     AutoRoute(
       page: QuestsScreen,
       path: AppRoutes.quests,
+    ),
+    AutoRoute(
+      page: SurveyScreen,
+      path: AppRoutes.survey,
+    ),
+    AutoRoute(
+      page: SurveyFinishedScreen,
+      path: AppRoutes.surveyFinished,
     ),
   ],
 )

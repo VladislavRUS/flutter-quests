@@ -8,7 +8,5 @@ class TextAnswerModel = TextAnswerModelBase with _$TextAnswerModel;
 abstract class TextAnswerModelBase extends AnswerModel with Store {
   final String text;
 
-  TextAnswerModelBase({
-    required this.text,
-  });
+  TextAnswerModelBase({required this.text, required super.stepId});
 }

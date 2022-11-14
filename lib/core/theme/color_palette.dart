@@ -13,4 +13,5 @@ class ColorPalette {
   static const Color wildSand = Color(0xffF5F5F5);
   static const Color grayChateau = Color(0xff99A2AD);
   static const Color emerald = Color(0xff56CC95);
+  static const Color bittersweet = Color(0xffFB6A6A);
 }

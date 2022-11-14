@@ -3,7 +3,8 @@ import 'dart:convert';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_quests/core/constants/ui.dart';
+import 'package:flutter_quests/core/routing/app_router.dart';
+import 'package:flutter_quests/core/routing/app_routes.dart';
 import 'package:flutter_quests/core/utils/get_quest_file_title_description.dart';
 import 'package:flutter_quests/core/utils/write_file.dart';
 import 'package:flutter_quests/data/mappers/quest_mapper.dart';
@@ -55,7 +56,13 @@ class _QuestsScreenState extends State<QuestsScreen> {
   }
 
   void _onTap(BuildContext context, QuestModel quest) {
-    print(quest);
+    final surveyStore = context.read<RootStore>().surveyStore;
+
+    surveyStore.init(quest);
+
+    final appRouter = context.read<AppRouter>();
+
+    appRouter.pushNamed(AppRoutes.survey);
   }
 
   void _onShare(BuildContext context, QuestModel quest) async {
@@ -83,39 +90,37 @@ class _QuestsScreenState extends State<QuestsScreen> {
         leading: BackButton(),
       ),
       body: SafeArea(
-        child: Stack(
-          children: [
-            Container(),
-            Observer(builder: (_) {
-              return ListView.separated(
-                padding: const EdgeInsets.all(16),
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder: (_, index) {
-                  final quest = questsStore.quests[index];
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            children: [
+              Expanded(
+                child: Observer(builder: (_) {
+                  return ListView.separated(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shrinkWrap: true,
+                    itemBuilder: (_, index) {
+                      final quest = questsStore.quests[index];
 
-                  return QuestCard(
-                      quest: quest,
-                      onTap: (quest) => _onTap(context, quest),
-                      onShare: (quest) => _onShare(context, quest));
-                },
-                separatorBuilder: (_, __) => const SizedBox(
-                  height: UI.formFieldSpacing,
-                ),
-                itemCount: questsStore.quests.length,
-              );
-            }),
-            Positioned(
-              bottom: 16,
-              left: 16,
-              right: 16,
-              child: CustomButton(
+                      return QuestCard(
+                          quest: quest,
+                          onTap: (quest) => _onTap(context, quest),
+                          onShare: (quest) => _onShare(context, quest));
+                    },
+                    separatorBuilder: (_, __) => const SizedBox(
+                      height: 10,
+                    ),
+                    itemCount: questsStore.quests.length,
+                  );
+                }),
+              ),
+              CustomButton(
                 onTap: () => _onLoad(context),
                 text: 'Загрузить из файла',
                 color: CustomButtonColor.secondary,
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );
