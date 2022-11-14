@@ -7,6 +7,14 @@ part 'quest_model.g.dart';
 class QuestModel = QuestModelBase with _$QuestModel;
 
 abstract class QuestModelBase with Store {
+  final String title;
+  final String description;
+
+  QuestModelBase({
+    required this.title,
+    required this.description,
+  });
+
   @observable
   ObservableList<StepModel> steps = ObservableList();
 

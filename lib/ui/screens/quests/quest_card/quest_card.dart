@@ -31,15 +31,17 @@ class QuestCard extends StatelessWidget {
       onTap: _onTap,
       child: Padding(
         padding: const EdgeInsets.all(24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              quest.toString(),
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w700,
-                color: ColorPalette.shipGray,
+            Expanded(
+              child: Text(
+                quest.title,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                  color: ColorPalette.shipGray,
+                ),
               ),
             ),
             Row(

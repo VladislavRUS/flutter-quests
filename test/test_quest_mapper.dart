@@ -16,6 +16,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() async {
   final testJson = {
+    'title': 'test_quest',
+    'description': 'test_description',
     'steps': [
       {
         'id': 'text_id',
@@ -67,7 +69,10 @@ void main() async {
     ]
   };
 
-  final testQuest = QuestModel();
+  final testQuest = QuestModel(
+    title: 'test_quest',
+    description: 'test_description',
+  );
 
   // Text step
   final textStep = TextStepModel();

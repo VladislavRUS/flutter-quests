@@ -4,13 +4,13 @@ import 'package:flutter_quests/core/theme/color_palette.dart';
 enum CustomButtonColor { primary, secondary }
 
 class CustomButton extends StatelessWidget {
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final String text;
   final CustomButtonColor color;
 
   const CustomButton({
     Key? key,
-    required this.onTap,
+    this.onTap,
     required this.text,
     this.color = CustomButtonColor.primary,
   }) : super(key: key);

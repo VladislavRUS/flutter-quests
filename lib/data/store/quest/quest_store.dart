@@ -16,8 +16,11 @@ abstract class QuestStoreBase with Store {
   QuestModel? quest;
 
   @action
-  void create() {
-    quest = QuestModel();
+  void create(String title, String description) {
+    quest = QuestModel(
+      title: title,
+      description: description,
+    );
   }
 
   @action

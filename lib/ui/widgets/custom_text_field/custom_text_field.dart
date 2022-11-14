@@ -10,6 +10,7 @@ class CustomTextField extends StatelessWidget {
   final ValueChanged<String> onChanged;
   final TextInputType keyboardType;
   final List<TextInputFormatter>? inputFormatters;
+  final bool autofocus;
 
   const CustomTextField({
     Key? key,
@@ -19,6 +20,7 @@ class CustomTextField extends StatelessWidget {
     required this.onChanged,
     this.keyboardType = TextInputType.text,
     this.inputFormatters,
+    this.autofocus = false,
   }) : super(key: key);
 
   @override
@@ -30,6 +32,7 @@ class CustomTextField extends StatelessWidget {
         onChanged: onChanged,
         keyboardType: keyboardType,
         inputFormatters: inputFormatters,
+        autofocus: autofocus,
         decoration: InputDecoration.collapsed(
             hintText: placeholder,
             hintStyle: const TextStyle(

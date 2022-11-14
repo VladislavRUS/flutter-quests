@@ -38,13 +38,14 @@ class CreateQuestScreen extends StatelessWidget {
 
     return Observer(builder: (_) {
       final stepsNotEmpty = questStore.quest!.steps.isNotEmpty;
+      final title = questStore.quest!.title;
 
       return Scaffold(
         backgroundColor:
             stepsNotEmpty ? ColorPalette.concrete : ColorPalette.white,
         appBar: CustomAppBar(
           leading: const BackButton(),
-          title: 'Создание квеста',
+          title: title,
           actions: [
             if (stepsNotEmpty)
               IconButton(

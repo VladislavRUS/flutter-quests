@@ -5,12 +5,17 @@ import 'package:flutter_quests/data/models/step/step_model.dart';
 class QuestMapper {
   static Map<String, dynamic> toJson(QuestModel quest) {
     return {
+      'title': quest.title,
+      'description': quest.description,
       'steps': quest.steps.map(StepMapper.toJson).toList(),
     };
   }
 
   static QuestModel fromJson(Map<String, dynamic> json) {
-    final questModel = QuestModel();
+    final questModel = QuestModel(
+      title: json['title'],
+      description: json['description'],
+    );
 
     final jsonSteps = List<Map<String, dynamic>>.from(json['steps']);
 
