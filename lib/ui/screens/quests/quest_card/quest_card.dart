@@ -30,19 +30,31 @@ class QuestCard extends StatelessWidget {
     return CustomCard(
       onTap: _onTap,
       child: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
-              child: Text(
-                quest.title,
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
-                  color: ColorPalette.shipGray,
-                ),
+            Text(
+              quest.title,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+                color: ColorPalette.shipGray,
               ),
+            ),
+            const SizedBox(
+              height: 9,
+            ),
+            Text(
+              quest.description,
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                color: ColorPalette.manatee,
+              ),
+            ),
+            const SizedBox(
+              height: 20,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
