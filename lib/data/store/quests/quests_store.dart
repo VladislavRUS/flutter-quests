@@ -27,6 +27,8 @@ abstract class QuestsStoreBase with Store {
       return;
     }
 
+    quests.clear();
+
     quests.addAll(
       stringQuests.map(
         (stringQuest) => QuestMapper.fromJson(
