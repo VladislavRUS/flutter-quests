@@ -68,6 +68,9 @@ class SlideStepBuilder extends StatelessWidget {
                 height: UI.formFieldSpacing,
               ),
             ),
+            const SizedBox(
+              height: UI.formFieldSpacing,
+            ),
           ],
         );
       },

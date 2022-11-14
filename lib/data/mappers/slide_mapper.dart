@@ -14,7 +14,8 @@ class SlideMapper {
 
     slide.text = json['text'];
 
-    final jsonImages = json['images'] as List<Map<String, dynamic>>;
+    final jsonImages = List<Map<String, dynamic>>.from(json['images']);
+
     slide.images.addAll(jsonImages.map(ImageMapper.fromJson).toList());
 
     return slide;

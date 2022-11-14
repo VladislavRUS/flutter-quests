@@ -1,6 +1,7 @@
 import 'package:flutter_quests/core/utils/get_id.dart';
 import 'package:flutter_quests/data/enums/previous_type.dart';
 import 'package:flutter_quests/data/enums/step_type.dart';
+import 'package:flutter_quests/data/models/option/option_model.dart';
 import 'package:flutter_quests/data/models/previous/branch_previous/branch_previous_model.dart';
 import 'package:flutter_quests/data/models/previous/simple_previous/simple_previous_model.dart';
 import 'package:flutter_quests/data/models/step/select_step/select_step_model.dart';
@@ -98,16 +99,20 @@ abstract class StepStoreBase with Store {
       final previousStep = questStep.previous!;
 
       if (previousStep is SimplePreviousModel) {
-        previousStep.stepId = null;
+        if (previousStep.stepId == step.id) {
+          previousStep.stepId = null;
+        }
       } else if (previousStep is BranchPreviousModel) {
-        previousStep.stepId = null;
-        previousStep.option = '';
+        if (previousStep.stepId == step.id) {
+          previousStep.stepId = null;
+          previousStep.optionId = null;
+        }
       }
     }
   }
 
   @action
-  void clearBranchPreviousForStep(StepModel step, String option) {
+  void clearBranchPreviousForStep(StepModel step, OptionModel option) {
     final steps = rootStore.questStore.quest?.steps ?? <StepModel>[];
 
     for (final questStep in steps) {
@@ -122,12 +127,15 @@ abstract class StepStoreBase with Store {
       final previousStep = questStep.previous!;
 
       if (previousStep is SimplePreviousModel) {
-        previousStep.stepId = null;
-      } else if (previousStep is BranchPreviousModel &&
-          previousStep.stepId == step.id &&
-          previousStep.option == option) {
-        previousStep.stepId = null;
-        previousStep.option = '';
+        if (previousStep.stepId == step.id) {
+          previousStep.stepId = null;
+        }
+      } else if (previousStep is BranchPreviousModel) {
+        if (previousStep.stepId == step.id &&
+            previousStep.optionId == option.id) {
+          previousStep.stepId = null;
+          previousStep.optionId = null;
+        }
       }
     }
   }

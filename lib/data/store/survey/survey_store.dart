@@ -25,15 +25,11 @@ abstract class SurveyStoreBase with Store {
   ObservableList<AnswerModel> answers = ObservableList();
 
   @observable
-  ObservableSet<String> steps = ObservableSet();
-
-  @observable
-  StepModel? currentStep;
+  ObservableSet<String> answeredStepIds = ObservableSet();
 
   @action
   void init(QuestModel value) {
     quest = value;
-    currentStep = quest!.steps.first;
 
     answers.clear();
   }
@@ -42,25 +38,33 @@ abstract class SurveyStoreBase with Store {
   void initFromFile() {}
 
   @action
-  StepModel? submit(AnswerModel? answer) {
-    steps.add(currentStep!.id!);
+  StepModel? submit(StepModel currentStep, AnswerModel? answer) {
+    if (!answeredStepIds.contains(currentStep.id)) {
+      answeredStepIds.add(currentStep.id!);
 
-    // Add answer to answers
-    if (answer != null) {
-      answers.add(answer);
+      // Add answer to answers
+      if (answer != null) {
+        answers.add(answer);
+      }
     }
 
     // Calculate next step
-    final nextStep = _calculateNextStep(answer);
-
-    if (nextStep != null) {
-      currentStep = nextStep;
-    }
-
-    return nextStep;
+    return _calculateNextStep(currentStep, answer);
   }
 
-  StepModel? _calculateNextStep(AnswerModel? answer) {
+  StepModel? getStepById(String stepId) {
+    return quest!.steps.firstWhereOrNull((step) => step.id == stepId);
+  }
+
+  bool isStepAnswered(String stepId) {
+    return answeredStepIds.contains(stepId);
+  }
+
+  AnswerModel? getStepAnswer(String stepId) {
+    return answers.firstWhereOrNull((answer) => answer.stepId == stepId);
+  }
+
+  StepModel? _calculateNextStep(StepModel currentStep, AnswerModel? answer) {
     if (currentStep is SelectStepModel) {
       final selectAnswer = answer as SelectAnswerModel;
 
@@ -68,15 +72,15 @@ abstract class SurveyStoreBase with Store {
         final previous = step.previous;
 
         return (previous is BranchPreviousModel) &&
-            previous.stepId == currentStep!.id &&
-            previous.option == selectAnswer.option;
+            previous.stepId == currentStep.id &&
+            previous.optionId == selectAnswer.option.id;
       });
     } else {
       return quest!.steps.firstWhereOrNull((step) {
         final previous = step.previous;
 
         return (previous is SimplePreviousModel) &&
-            previous.stepId == currentStep!.id;
+            previous.stepId == currentStep.id;
       });
     }
   }

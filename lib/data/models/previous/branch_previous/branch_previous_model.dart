@@ -9,5 +9,5 @@ abstract class BranchPreviousModelBase extends PreviousModel with Store {
   @observable
   String? stepId;
   @observable
-  String? option;
+  String? optionId;
 }

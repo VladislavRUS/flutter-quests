@@ -1,10 +1,11 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quests/core/constants/assets.dart';
 import 'package:flutter_quests/core/theme/color_palette.dart';
 import 'package:flutter_quests/data/models/image/image_model.dart';
 import 'package:flutter_quests/ui/widgets/custom_disabled/custom_disabled.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:universal_io/io.dart';
 
 class CreateSlideToolbar extends StatefulWidget {
   final void Function(ImageModel) onImageAdded;
@@ -23,18 +24,20 @@ class CreateSlideToolbar extends StatefulWidget {
 }
 
 class _CreateSlideToolbarState extends State<CreateSlideToolbar> {
-  final _picker = ImagePicker();
-
   void _onAddImage() async {
-    final images = await _picker.pickMultiImage();
+    final result = await FilePicker.platform.pickFiles(
+      allowMultiple: true,
+      type: FileType.image,
+    );
 
-    if (images.isEmpty) {
+    if (result == null || result.files.isEmpty) {
       return;
     }
 
-    for (final image in images) {
-      final bytes = await image.readAsBytes();
+    final files = result.paths.map((path) => File(path!));
 
+    for (final file in files) {
+      final bytes = await file.readAsBytes();
       widget.onImageAdded(ImageModel.fromBytes(bytes));
     }
   }

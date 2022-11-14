@@ -31,7 +31,7 @@ class PreviousMapper {
       BranchPreviousModel branchPrevious) {
     return {
       'stepId': branchPrevious.stepId,
-      'option': branchPrevious.option,
+      'optionId': branchPrevious.optionId,
     };
   }
 
@@ -61,7 +61,7 @@ class PreviousMapper {
     final branchPrevious = BranchPreviousModel();
 
     branchPrevious.stepId = json['stepId'];
-    branchPrevious.option = json['option'];
+    branchPrevious.optionId = json['optionId'];
 
     return branchPrevious;
   }

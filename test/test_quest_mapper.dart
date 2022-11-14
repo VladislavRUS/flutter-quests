@@ -6,6 +6,8 @@ import 'package:flutter_quests/data/enums/step_type.dart';
 import 'package:flutter_quests/data/mappers/quest_mapper.dart';
 import 'package:flutter_quests/data/models/hint/hint_model.dart';
 import 'package:flutter_quests/data/models/image/image_model.dart';
+import 'package:flutter_quests/data/models/option/option_model.dart';
+import 'package:flutter_quests/data/models/previous/branch_previous/branch_previous_model.dart';
 import 'package:flutter_quests/data/models/previous/simple_previous/simple_previous_model.dart';
 import 'package:flutter_quests/data/models/quest/quest_model.dart';
 import 'package:flutter_quests/data/models/slide/slide_model.dart';
@@ -44,14 +46,27 @@ void main() async {
           'stepId': 'select_previous',
         },
         'type': describeEnum(StepType.select),
-        'options': ['first', 'second'],
+        'question': 'Question',
+        'options': [
+          {
+            'id': 'first_option',
+            'text': 'first',
+            'isCorrect': true,
+          },
+          {
+            'id': 'second_option',
+            'text': 'second',
+            'isCorrect': false,
+          },
+        ],
       },
       {
         'id': 'slide_id',
         'title': 'slide_title',
         'previous': {
-          'type': describeEnum(PreviousType.simple),
+          'type': describeEnum(PreviousType.branch),
           'stepId': 'slide_previous',
+          'optionId': 'slide_previous_option',
         },
         'type': describeEnum(StepType.slide),
         'slides': [
@@ -97,10 +112,19 @@ void main() async {
 
   // Select step
   final selectStep = SelectStepModel();
+  selectStep.question = 'Question';
   selectStep.id = 'select_id';
   selectStep.title = 'select_title';
 
-  selectStep.options.addAll(['first', 'second']);
+  final option1 = OptionModel(id: 'first_option');
+  option1.text = 'first';
+  option1.isCorrect = true;
+
+  final option2 = OptionModel(id: 'second_option');
+  option2.text = 'second';
+  option2.isCorrect = false;
+
+  selectStep.options.addAll([option1, option2]);
 
   final selectPreviousModel = SimplePreviousModel();
   selectPreviousModel.stepId = 'select_previous';
@@ -122,8 +146,9 @@ void main() async {
 
   slideStep.slides.add(slide);
 
-  final slidePreviousModel = SimplePreviousModel();
+  final slidePreviousModel = BranchPreviousModel();
   slidePreviousModel.stepId = 'slide_previous';
+  slidePreviousModel.optionId = 'slide_previous_option';
 
   slideStep.previous = slidePreviousModel;
 

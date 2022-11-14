@@ -11,6 +11,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+  final _rootStore = RootStore();
   final _appRouter = AppRouter();
 
   MyApp({super.key});
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider(create: (_) => RootStore()),
+        Provider.value(value: _rootStore),
         ChangeNotifierProvider.value(value: _appRouter),
       ],
       child: MaterialApp.router(

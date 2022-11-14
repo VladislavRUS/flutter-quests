@@ -11,6 +11,7 @@ class CustomTextField extends StatelessWidget {
   final TextInputType keyboardType;
   final List<TextInputFormatter>? inputFormatters;
   final bool autofocus;
+  final bool disabled;
 
   const CustomTextField({
     Key? key,
@@ -21,29 +22,33 @@ class CustomTextField extends StatelessWidget {
     this.keyboardType = TextInputType.text,
     this.inputFormatters,
     this.autofocus = false,
+    this.disabled = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return CustomFormField(
-      hint: hint,
-      child: TextFormField(
-        initialValue: value,
-        onChanged: onChanged,
-        keyboardType: keyboardType,
-        inputFormatters: inputFormatters,
-        autofocus: autofocus,
-        decoration: InputDecoration.collapsed(
-            hintText: placeholder,
-            hintStyle: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w300,
-              color: ColorPalette.manatee,
-            )),
-        style: const TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.w400,
-          color: ColorPalette.shipGray,
+    return IgnorePointer(
+      ignoring: disabled,
+      child: CustomFormField(
+        hint: hint,
+        child: TextFormField(
+          initialValue: value,
+          onChanged: onChanged,
+          keyboardType: keyboardType,
+          inputFormatters: inputFormatters,
+          autofocus: autofocus,
+          decoration: InputDecoration.collapsed(
+              hintText: placeholder,
+              hintStyle: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w300,
+                color: ColorPalette.manatee,
+              )),
+          style: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w400,
+            color: ColorPalette.shipGray,
+          ),
         ),
       ),
     );

@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_quests/core/utils/enum_from_string.dart';
 import 'package:flutter_quests/data/enums/step_type.dart';
 import 'package:flutter_quests/data/mappers/hint_mapper.dart';
+import 'package:flutter_quests/data/mappers/option_mapper.dart';
 import 'package:flutter_quests/data/mappers/previous_mapper.dart';
 import 'package:flutter_quests/data/mappers/slide_mapper.dart';
 import 'package:flutter_quests/data/models/hint/hint_model.dart';
@@ -43,7 +44,8 @@ class StepMapper {
 
   static Map<String, dynamic> _selectStepToJson(SelectStepModel step) {
     return {
-      'options': step.options,
+      'question': step.question,
+      'options': step.options.map(OptionMapper.toJson).toList(),
     };
   }
 
@@ -96,10 +98,11 @@ class StepMapper {
 
   static SelectStepModel _selectStepFromJson(Map<String, dynamic> json) {
     final selectStep = SelectStepModel();
+    selectStep.question = json['question'];
 
-    final options = List<String>.from(json['options']);
+    final options = List<Map<String, dynamic>>.from(json['options']);
 
-    selectStep.options.addAll(options);
+    selectStep.options.addAll(options.map(OptionMapper.fromJson));
 
     return selectStep;
   }
@@ -107,7 +110,7 @@ class StepMapper {
   static SlideStepModel _slideStepFromJson(Map<String, dynamic> json) {
     final slideStep = SlideStepModel();
 
-    final jsonSlides = json['slides'] as List<Map<String, dynamic>>;
+    final jsonSlides = List<Map<String, dynamic>>.from(json['slides']);
 
     slideStep.slides.addAll(
       jsonSlides.map<SlideModel>(SlideMapper.fromJson).toList(),

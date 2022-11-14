@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_quests/core/constants/ui.dart';
+import 'package:flutter_quests/data/models/option/option_model.dart';
 import 'package:flutter_quests/data/models/previous/branch_previous/branch_previous_model.dart';
 import 'package:flutter_quests/data/models/step/select_step/select_step_model.dart';
 import 'package:flutter_quests/data/models/step/step_model.dart';
@@ -20,12 +21,13 @@ class BranchPreviousBuilder extends StatelessWidget {
     previous.stepId = previousStep.id;
   }
 
-  void _onOptionSelected(BuildContext context, StepModel step, String option) {
+  void _onOptionSelected(
+      BuildContext context, StepModel step, OptionModel option) {
     final stepStore = context.read<RootStore>().stepStore;
 
     stepStore.clearBranchPreviousForStep(step, option);
 
-    previous.option = option;
+    previous.optionId = option.id;
   }
 
   @override
@@ -36,6 +38,10 @@ class BranchPreviousBuilder extends StatelessWidget {
 
       final previousStep = previous.stepId != null
           ? (quest.getStepById(previous.stepId!) as SelectStepModel)
+          : null;
+
+      final previousOption = previous.optionId != null
+          ? previousStep?.getOptionById(previous.optionId!)
           : null;
 
       final currentStep = context.read<RootStore>().stepStore.step;
@@ -62,9 +68,9 @@ class BranchPreviousBuilder extends StatelessWidget {
             CustomSelectField(
               hint: 'Ответ',
               placeholder: 'Выберите ответ',
-              value: previous.option,
+              value: previousOption,
               options: previousStep.options,
-              buildOption: (option) => option,
+              buildOption: (option) => option.text,
               onChanged: (option) =>
                   _onOptionSelected(context, previousStep, option),
             )

@@ -62,7 +62,10 @@ class _QuestsScreenState extends State<QuestsScreen> {
 
     final appRouter = context.read<AppRouter>();
 
-    appRouter.pushNamed(AppRoutes.survey);
+    final path = appRouter.makePath(AppRoutes.survey,
+        pathParams: {'stepId': surveyStore.quest!.steps.first.id});
+
+    appRouter.pushNamed(path);
   }
 
   void _onShare(BuildContext context, QuestModel quest) async {

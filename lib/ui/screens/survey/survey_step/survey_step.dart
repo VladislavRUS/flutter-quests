@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_quests/core/constants/ui.dart';
-import 'package:flutter_quests/core/theme/color_palette.dart';
 import 'package:flutter_quests/data/models/answer/answer_model.dart';
+import 'package:flutter_quests/data/models/step/select_step/select_step_model.dart';
+import 'package:flutter_quests/data/models/step/slide_step/slide_step_model.dart';
 import 'package:flutter_quests/data/models/step/step_model.dart';
 import 'package:flutter_quests/data/models/step/text_step/text_step_model.dart';
+import 'package:flutter_quests/ui/screens/survey/survey_step/select_survey_step/select_survey_step.dart';
+import 'package:flutter_quests/ui/screens/survey/survey_step/slide_survey_step/slide_survey_step.dart';
 import 'package:flutter_quests/ui/screens/survey/survey_step/text_survey_step/text_survey_step.dart';
 
 class SurveyStep extends StatelessWidget {
@@ -23,21 +25,24 @@ class SurveyStep extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            step.title,
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w700,
-              color: ColorPalette.shipGray,
-            ),
-          ),
-          const SizedBox(
-            height: UI.formFieldSpacing,
-          ),
           if (step is TextStepModel)
             Expanded(
               child: TextSurveyStep(
                 step: step as TextStepModel,
+                onSubmit: onSubmit,
+              ),
+            ),
+          if (step is SelectStepModel)
+            Expanded(
+              child: SelectSurveyStep(
+                step: step as SelectStepModel,
+                onSubmit: onSubmit,
+              ),
+            ),
+          if (step is SlideStepModel)
+            Expanded(
+              child: SlideSurveyStep(
+                step: step as SlideStepModel,
                 onSubmit: onSubmit,
               ),
             ),
