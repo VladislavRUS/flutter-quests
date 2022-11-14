@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_quests/core/constants/assets.dart';
 import 'package:flutter_quests/core/constants/ui.dart';
 import 'package:flutter_quests/core/theme/color_palette.dart';
@@ -58,43 +57,37 @@ class _CreateOptionDialogState extends State<CreateOptionDialog> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
-          child: Observer(
-            builder: (_) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      initialValue: _value,
-                      onChanged: _onChange,
-                      autofocus: true,
-                      maxLines: null,
-                      keyboardType: TextInputType.text,
-                      decoration: const InputDecoration.collapsed(
-                        hintText: 'Введите вариант ответа',
-                        hintStyle: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w300,
-                          color: ColorPalette.manatee,
-                        ),
-                      ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: TextFormField(
+                  initialValue: _value,
+                  onChanged: _onChange,
+                  autofocus: true,
+                  maxLines: null,
+                  keyboardType: TextInputType.text,
+                  decoration: const InputDecoration.collapsed(
+                    hintText: 'Введите вариант ответа',
+                    hintStyle: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w300,
+                      color: ColorPalette.manatee,
                     ),
                   ),
-                ],
-              );
-            },
+                ),
+              ),
+            ],
           ),
         ),
       ),
-      floatingActionButton: Observer(
-        builder: (_) => CustomDisabled(
-          disabled: _value.trim().isEmpty,
-          child: CustomFloatingActionButton(
-            onTap: () => _onSave(context),
-            child: const Icon(
-              Icons.save,
-              color: ColorPalette.white,
-            ),
+      floatingActionButton: CustomDisabled(
+        disabled: _value.trim().isEmpty,
+        child: CustomFloatingActionButton(
+          onTap: () => _onSave(context),
+          child: const Icon(
+            Icons.save,
+            color: ColorPalette.white,
           ),
         ),
       ),

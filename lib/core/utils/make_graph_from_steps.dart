@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter_quests/core/theme/color_palette.dart';
+import 'package:flutter_quests/data/models/previous/branch_previous/branch_previous_model.dart';
 import 'package:flutter_quests/data/models/previous/simple_previous/simple_previous_model.dart';
 import 'package:flutter_quests/data/models/step/step_model.dart';
 import 'package:graphview/GraphView.dart';
@@ -27,18 +28,22 @@ Graph makeGraphFromSteps(List<StepModel> steps) {
   paint.strokeWidth = 1;
 
   steps.forEachIndexed((index, step) {
+    String? stepId;
+
     if (step.previous is SimplePreviousModel) {
-      final stepId = (step.previous as SimplePreviousModel).stepId;
+      stepId = (step.previous as SimplePreviousModel).stepId;
+    } else if (step.previous is BranchPreviousModel) {
+      stepId = (step.previous as BranchPreviousModel).stepId;
+    }
 
-      final previousStepIndex =
-          steps.indexWhere((element) => element.id == stepId);
+    final previousStepIndex =
+        steps.indexWhere((element) => element.id == stepId);
 
-      if (previousStepIndex != -1) {
-        final sourceNode = nodes[previousStepIndex];
-        final destinationNode = nodes[index];
+    if (previousStepIndex != -1) {
+      final sourceNode = nodes[previousStepIndex];
+      final destinationNode = nodes[index];
 
-        edges.add(Edge(sourceNode, destinationNode, paint: paint));
-      }
+      edges.add(Edge(sourceNode, destinationNode, paint: paint));
     }
   });
 

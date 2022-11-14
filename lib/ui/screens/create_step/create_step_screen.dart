@@ -104,14 +104,15 @@ class _CreateStepScreenState extends State<CreateStepScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      CustomSelectField(
-                        hint: 'Тип шага',
-                        placeholder: 'Выберите тип шага',
-                        value: step?.type,
-                        options: StepType.values,
-                        buildOption: (type) => type.displayString,
-                        onChanged: _stepStore.onStepTypeSelected,
-                      ),
+                      if (step == null || step.isNew)
+                        CustomSelectField(
+                          hint: 'Тип шага',
+                          placeholder: 'Выберите тип шага',
+                          value: step?.type,
+                          options: StepType.values,
+                          buildOption: (type) => type.displayString,
+                          onChanged: _stepStore.onStepTypeSelected,
+                        ),
                       const SizedBox(
                         height: UI.formFieldSpacing,
                       ),

@@ -30,7 +30,8 @@ class PreviousMapper {
   static Map<String, dynamic> _branchToJson(
       BranchPreviousModel branchPrevious) {
     return {
-      'answersSteps': branchPrevious.answersSteps,
+      'stepId': branchPrevious.stepId,
+      'option': branchPrevious.option,
     };
   }
 
@@ -57,6 +58,11 @@ class PreviousMapper {
 
   static BranchPreviousModel _branchPreviousFromJson(
       Map<String, dynamic> json) {
-    return BranchPreviousModel();
+    final branchPrevious = BranchPreviousModel();
+
+    branchPrevious.stepId = json['stepId'];
+    branchPrevious.option = json['option'];
+
+    return branchPrevious;
   }
 }

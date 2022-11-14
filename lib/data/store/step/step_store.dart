@@ -83,6 +83,56 @@ abstract class StepStoreBase with Store {
   }
 
   @action
+  void clearSimplePreviousForStep(StepModel step) {
+    final steps = rootStore.questStore.quest?.steps ?? <StepModel>[];
+
+    for (final questStep in steps) {
+      if (questStep.id == step.id) {
+        continue;
+      }
+
+      if (questStep.previous == null) {
+        continue;
+      }
+
+      final previousStep = questStep.previous!;
+
+      if (previousStep is SimplePreviousModel) {
+        previousStep.stepId = null;
+      } else if (previousStep is BranchPreviousModel) {
+        previousStep.stepId = null;
+        previousStep.option = '';
+      }
+    }
+  }
+
+  @action
+  void clearBranchPreviousForStep(StepModel step, String option) {
+    final steps = rootStore.questStore.quest?.steps ?? <StepModel>[];
+
+    for (final questStep in steps) {
+      if (questStep.id == step.id) {
+        continue;
+      }
+
+      if (questStep.previous == null) {
+        continue;
+      }
+
+      final previousStep = questStep.previous!;
+
+      if (previousStep is SimplePreviousModel) {
+        previousStep.stepId = null;
+      } else if (previousStep is BranchPreviousModel &&
+          previousStep.stepId == step.id &&
+          previousStep.option == option) {
+        previousStep.stepId = null;
+        previousStep.option = '';
+      }
+    }
+  }
+
+  @action
   void clear() {
     step = null;
   }

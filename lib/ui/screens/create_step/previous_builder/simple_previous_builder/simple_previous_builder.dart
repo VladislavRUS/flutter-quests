@@ -14,8 +14,12 @@ class SimplePreviousBuilder extends StatelessWidget {
     required this.previous,
   }) : super(key: key);
 
-  void _onStepSelected(StepModel previousStep) {
-    previous.stepId = previousStep.id;
+  void _onStepSelected(BuildContext context, StepModel step) {
+    final stepStore = context.read<RootStore>().stepStore;
+
+    stepStore.clearSimplePreviousForStep(step);
+
+    previous.stepId = step.id;
   }
 
   @override
@@ -39,7 +43,7 @@ class SimplePreviousBuilder extends StatelessWidget {
         value: previousStep,
         options: steps,
         buildOption: (step) => step.title,
-        onChanged: _onStepSelected,
+        onChanged: (step) => _onStepSelected(context, step),
       );
     });
   }

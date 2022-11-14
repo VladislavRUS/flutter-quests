@@ -9,7 +9,7 @@ extension PreviousTypeDisplayString on PreviousType {
       case PreviousType.simple:
         return 'Шаг';
       case PreviousType.branch:
-        return 'Ветка';
+        return 'Вариант ответа';
     }
   }
 }

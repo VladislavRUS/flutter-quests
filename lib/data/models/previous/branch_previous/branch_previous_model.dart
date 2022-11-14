@@ -7,5 +7,7 @@ class BranchPreviousModel = BranchPreviousModelBase with _$BranchPreviousModel;
 
 abstract class BranchPreviousModelBase extends PreviousModel with Store {
   @observable
-  ObservableMap<int, int> answersSteps = ObservableMap();
+  String? stepId;
+  @observable
+  String? option;
 }
