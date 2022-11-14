@@ -2,6 +2,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quests/core/constants/assets.dart';
 import 'package:flutter_quests/core/theme/color_palette.dart';
+import 'package:flutter_quests/core/utils/get_id.dart';
 import 'package:flutter_quests/data/models/image/image_model.dart';
 import 'package:flutter_quests/ui/widgets/custom_disabled/custom_disabled.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -37,8 +38,9 @@ class _CreateSlideToolbarState extends State<CreateSlideToolbar> {
     final files = result.paths.map((path) => File(path!));
 
     for (final file in files) {
-      final bytes = await file.readAsBytes();
-      widget.onImageAdded(ImageModel.fromBytes(bytes));
+      widget.onImageAdded(
+        ImageModel(id: getId(), path: file.path),
+      );
     }
   }
 

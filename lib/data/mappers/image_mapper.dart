@@ -4,11 +4,11 @@ class ImageMapper {
   static Map<String, dynamic> toJson(ImageModel image) {
     return {
       'id': image.id,
-      'data': image.data,
+      'path': image.path,
     };
   }
 
   static ImageModel fromJson(Map<String, dynamic> json) {
-    return ImageModel(id: json['id'], data: json['data']);
+    return ImageModel(id: json['id'], path: json['path']);
   }
 }

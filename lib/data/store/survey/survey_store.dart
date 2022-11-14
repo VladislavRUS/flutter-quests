@@ -35,9 +35,6 @@ abstract class SurveyStoreBase with Store {
   }
 
   @action
-  void initFromFile() {}
-
-  @action
   StepModel? submit(StepModel currentStep, AnswerModel? answer) {
     if (!answeredStepIds.contains(currentStep.id)) {
       answeredStepIds.add(currentStep.id!);

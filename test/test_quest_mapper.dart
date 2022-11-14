@@ -141,7 +141,7 @@ void main() async {
   final slide = SlideModel();
   slide.text = 'slide_text';
 
-  final slideImage = ImageModel(id: 'image_id', data: 'image_data');
+  final slideImage = ImageModel(id: 'image_id', path: 'image_data');
   slide.images.add(slideImage);
 
   slideStep.slides.add(slide);
