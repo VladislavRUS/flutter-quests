@@ -1,5 +1,6 @@
 import 'package:flutter_quests/data/enums/step_type.dart';
 import 'package:flutter_quests/data/models/previous/previous_model.dart';
+import 'package:flutter_quests/data/models/previous/simple_previous/simple_previous_model.dart';
 import 'package:flutter_quests/data/models/step/select_step/select_step_model.dart';
 import 'package:flutter_quests/data/models/step/slide_step/slide_step_model.dart';
 import 'package:mobx/mobx.dart';
@@ -16,7 +17,7 @@ abstract class StepModelBase with Store {
   @observable
   String title = '';
   @observable
-  PreviousModel? previous;
+  PreviousModel? previous = SimplePreviousModel();
 
   @computed
   bool get isNew => id == null;
