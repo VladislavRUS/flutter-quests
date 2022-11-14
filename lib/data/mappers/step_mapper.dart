@@ -97,7 +97,9 @@ class StepMapper {
   static SelectStepModel _selectStepFromJson(Map<String, dynamic> json) {
     final selectStep = SelectStepModel();
 
-    selectStep.options.addAll(json['options']);
+    final options = List<String>.from(json['options']);
+
+    selectStep.options.addAll(options);
 
     return selectStep;
   }
