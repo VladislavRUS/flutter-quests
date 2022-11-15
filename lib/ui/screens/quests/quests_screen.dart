@@ -53,6 +53,8 @@ class _QuestsScreenState extends State<QuestsScreen> {
     final quest = await unzipQuest(filePath);
     await questsStore.saveQuest(quest);
 
+    await questsStore.initQuests();
+
     surveyStore.init(quest);
 
     _navigateToQuest();
