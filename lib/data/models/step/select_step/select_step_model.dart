@@ -15,7 +15,7 @@ abstract class SelectStepModelBase extends StepModel with Store {
   @observable
   ObservableList<OptionModel> options = ObservableList();
 
-  @observable
+  @computed
   ObservableList<OptionModel> get correctOptions =>
       options.where((option) => option.isCorrect).toList().asObservable();
 

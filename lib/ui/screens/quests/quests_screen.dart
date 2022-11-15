@@ -4,7 +4,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_quests/core/routing/app_router.dart';
 import 'package:flutter_quests/core/routing/app_routes.dart';
 import 'package:flutter_quests/core/utils/unzip_quest.dart';
-import 'package:flutter_quests/core/utils/zip_quest.dart';
 import 'package:flutter_quests/data/models/quest/quest_model.dart';
 import 'package:flutter_quests/data/store/root/root_store.dart';
 import 'package:flutter_quests/ui/widgets/custom_app_bar/custom_app_bar.dart';
@@ -79,7 +78,9 @@ class _QuestsScreenState extends State<QuestsScreen> {
   }
 
   void _onShare(BuildContext context, QuestModel quest) async {
-    final result = await zipQuest(quest);
+    final zipStore = context.read<RootStore>().zipStore;
+
+    final result = await zipStore.zip(quest);
 
     await Share.shareXFiles(
       [
@@ -93,6 +94,7 @@ class _QuestsScreenState extends State<QuestsScreen> {
   @override
   Widget build(BuildContext context) {
     final questsStore = context.read<RootStore>().questsStore;
+    final zipStore = context.read<RootStore>().zipStore;
 
     return Scaffold(
       appBar: const CustomAppBar(
@@ -112,10 +114,14 @@ class _QuestsScreenState extends State<QuestsScreen> {
                     itemBuilder: (_, index) {
                       final quest = questsStore.quests[index];
 
-                      return QuestCard(
+                      return Observer(
+                        builder: (_) => QuestCard(
                           quest: quest,
                           onTap: _onLoadFromQuest,
-                          onShare: (quest) => _onShare(context, quest));
+                          onShare: (quest) => _onShare(context, quest),
+                          zipping: zipStore.zippingQuestIds.contains(quest.id),
+                        ),
+                      );
                     },
                     separatorBuilder: (_, __) => const SizedBox(
                       height: 10,
