@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_quests/data/models/previous/simple_previous/simple_previous_model.dart';
+import 'package:flutter_quests/data/models/step/select_step/select_step_model.dart';
 import 'package:flutter_quests/data/models/step/step_model.dart';
 import 'package:flutter_quests/data/store/root/root_store.dart';
 import 'package:flutter_quests/ui/widgets/custom_select_field/custom_select_field.dart';
@@ -27,11 +28,13 @@ class SimplePreviousBuilder extends StatelessWidget {
     return steps.where((step) {
       final stepIsNotTheSame = step.id != currentStep.id;
 
+      final stepIsNotSelect = step is! SelectStepModel;
+
       final stepIsNotPrevious = (step.previous.stepId == null ||
           step.previous.stepId != null &&
               step.previous.stepId != currentStep.id);
 
-      return stepIsNotTheSame && stepIsNotPrevious;
+      return stepIsNotTheSame && stepIsNotSelect && stepIsNotPrevious;
     }).toList();
   }
 

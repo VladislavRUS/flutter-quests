@@ -34,6 +34,13 @@ class BranchPreviousBuilder extends StatelessWidget {
     previous.optionId = option.id;
   }
 
+  List<StepModel> _getAvailableSteps(
+      List<StepModel> steps, StepModel currentStep) {
+    return steps
+        .where((step) => step.id != currentStep.id && (step is SelectStepModel))
+        .toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
@@ -50,10 +57,7 @@ class BranchPreviousBuilder extends StatelessWidget {
 
       final currentStep = context.read<RootStore>().stepStore.step;
 
-      final steps = quest.steps
-          .where(
-              (step) => step.id != currentStep?.id && (step is SelectStepModel))
-          .toList();
+      final steps = _getAvailableSteps(quest.steps, currentStep!);
 
       return Column(
         children: [

@@ -1,5 +1,6 @@
 import 'package:flutter_quests/core/utils/get_step_titles.dart';
 import 'package:flutter_quests/data/models/image/image_model.dart';
+import 'package:flutter_quests/data/models/previous/branch_previous/branch_previous_model.dart';
 import 'package:flutter_quests/data/models/step/select_step/select_step_model.dart';
 import 'package:flutter_quests/data/models/step/slide_step/slide_step_model.dart';
 import 'package:flutter_quests/data/models/step/step_model.dart';
@@ -77,6 +78,14 @@ abstract class QuestModelBase with Store {
 
     if (slideStepsWithoutSlides.isNotEmpty) {
       return 'У шагов со слайдами должны быть слайды. Шаги: ${getStepTitles(slideStepsWithoutSlides)}';
+    }
+
+    final stepsWithBranchPrevious =
+        steps.where((element) => element.previous is BranchPreviousModel);
+
+    if (stepsWithBranchPrevious.any((element) =>
+        (element.previous as BranchPreviousModel).optionId == null)) {
+      return 'У шагов с ветвлением должны быть варианты ответа. Шаги: ${getStepTitles(stepsWithBranchPrevious)}';
     }
 
     return null;
