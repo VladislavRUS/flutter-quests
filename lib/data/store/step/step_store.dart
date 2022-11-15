@@ -96,11 +96,7 @@ abstract class StepStoreBase with Store {
         continue;
       }
 
-      if (questStep.previous == null) {
-        continue;
-      }
-
-      final previousStep = questStep.previous!;
+      final previousStep = questStep.previous;
 
       if (previousStep is SimplePreviousModel) {
         if (previousStep.stepId == step.id) {
@@ -124,11 +120,7 @@ abstract class StepStoreBase with Store {
         continue;
       }
 
-      if (questStep.previous == null) {
-        continue;
-      }
-
-      final previousStep = questStep.previous!;
+      final previousStep = questStep.previous;
 
       if (previousStep is SimplePreviousModel) {
         if (previousStep.stepId == step.id) {
