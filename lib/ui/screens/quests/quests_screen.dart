@@ -4,6 +4,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_quests/core/routing/app_router.dart';
 import 'package:flutter_quests/core/routing/app_routes.dart';
 import 'package:flutter_quests/core/utils/unzip_quest.dart';
+import 'package:flutter_quests/core/utils/zip_quest.dart';
 import 'package:flutter_quests/data/models/quest/quest_model.dart';
 import 'package:flutter_quests/data/store/root/root_store.dart';
 import 'package:flutter_quests/ui/widgets/custom_app_bar/custom_app_bar.dart';
@@ -21,6 +22,8 @@ class QuestsScreen extends StatefulWidget {
 }
 
 class _QuestsScreenState extends State<QuestsScreen> {
+  final Set<String> _zippingQuestIds = {};
+
   @override
   void initState() {
     super.initState();
@@ -80,23 +83,26 @@ class _QuestsScreenState extends State<QuestsScreen> {
   }
 
   void _onShare(BuildContext context, QuestModel quest) async {
-    final zipStore = context.read<RootStore>().zipStore;
+    setState(() {
+      _zippingQuestIds.add(quest.id);
+    });
 
-    final result = await zipStore.zip(quest);
+    final result = await zipQuest(quest);
 
-    await Share.shareXFiles(
-      [
-        XFile(result.path),
-      ],
+    Share.shareXFiles(
+      [XFile(result.path)],
       text: result.title,
       subject: result.description,
     );
+
+    setState(() {
+      _zippingQuestIds.remove(quest.id);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final questsStore = context.read<RootStore>().questsStore;
-    final zipStore = context.read<RootStore>().zipStore;
 
     return Scaffold(
       appBar: const CustomAppBar(
@@ -109,28 +115,28 @@ class _QuestsScreenState extends State<QuestsScreen> {
           child: Column(
             children: [
               Expanded(
-                child: Observer(builder: (_) {
-                  return ListView.separated(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    shrinkWrap: true,
-                    itemBuilder: (_, index) {
-                      final quest = questsStore.quests[index];
+                child: Observer(
+                  builder: (_) {
+                    return ListView.separated(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      shrinkWrap: true,
+                      itemBuilder: (_, index) {
+                        final quest = questsStore.quests[index];
 
-                      return Observer(
-                        builder: (_) => QuestCard(
+                        return QuestCard(
                           quest: quest,
                           onTap: _onLoadFromQuest,
                           onShare: (quest) => _onShare(context, quest),
-                          zipping: zipStore.zippingQuestIds.contains(quest.id),
-                        ),
-                      );
-                    },
-                    separatorBuilder: (_, __) => const SizedBox(
-                      height: 10,
-                    ),
-                    itemCount: questsStore.quests.length,
-                  );
-                }),
+                          zipping: _zippingQuestIds.contains(quest.id),
+                        );
+                      },
+                      separatorBuilder: (_, __) => const SizedBox(
+                        height: 10,
+                      ),
+                      itemCount: questsStore.quests.length,
+                    );
+                  },
+                ),
               ),
               CustomButton(
                 onTap: () => _onLoad(context),
