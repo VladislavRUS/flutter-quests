@@ -38,7 +38,7 @@ class _QuestsScreenState extends State<QuestsScreen> {
     final surveyStore = context.read<RootStore>().surveyStore;
     final questsStore = context.read<RootStore>().questsStore;
 
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    final result = await FilePicker.platform.pickFiles();
 
     if (result == null) {
       return;
