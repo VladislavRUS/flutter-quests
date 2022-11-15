@@ -31,29 +31,27 @@ class SlideItem extends StatelessWidget {
           const SizedBox(
             height: UI.formFieldSpacing,
           ),
-          GridView.count(
+          ListView.separated(
             padding: const EdgeInsets.only(
               bottom: 50,
             ),
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            crossAxisCount: 1,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-            children: slide.images
-                .map(
-                  (image) => ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: SizedBox(
-                      height: 110,
-                      child: SlideImage(
-                        key: Key(image.id),
-                        image: image,
-                      ),
-                    ),
-                  ),
-                )
-                .toList(),
+            itemCount: slide.images.length,
+            itemBuilder: (context, index) {
+              final image = slide.images[index];
+
+              return ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: SlideImage(
+                  key: Key(image.id),
+                  image: image,
+                ),
+              );
+            },
+            separatorBuilder: (_, __) => const SizedBox(
+              height: 10,
+            ),
           )
         ],
       ),

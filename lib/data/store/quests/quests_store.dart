@@ -24,6 +24,10 @@ abstract class QuestsStoreBase with Store {
   Future<void> initQuests() async {
     quests.clear();
 
+    final demoQuest = await makeDemoQuest();
+
+    quests.add(demoQuest);
+
     final stringQuests = await AsyncStorage.getStringList(StorageKeys.quests);
 
     if (stringQuests != null) {
@@ -35,10 +39,6 @@ abstract class QuestsStoreBase with Store {
         ),
       );
     }
-
-    final demoQuest = await makeDemoQuest();
-
-    quests.add(demoQuest);
   }
 
   @action
