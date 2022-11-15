@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_quests/core/theme/color_palette.dart';
 import 'package:flutter_quests/core/utils/show_snackbar.dart';
-import 'package:flutter_quests/data/models/answer/answer_model.dart';
 import 'package:flutter_quests/data/models/step/slide_step/slide_step_model.dart';
 import 'package:flutter_quests/data/store/root/root_store.dart';
 import 'package:flutter_quests/ui/screens/survey/survey_step/slide_survey_step/slide_item/slide_item.dart';
@@ -12,7 +11,7 @@ import 'package:collection/collection.dart';
 
 class SlideSurveyStep extends StatefulWidget {
   final SlideStepModel step;
-  final void Function(AnswerModel?) onSubmit;
+  final VoidCallback onSubmit;
 
   const SlideSurveyStep({
     Key? key,
@@ -53,7 +52,7 @@ class _SlideSurveyStepState extends State<SlideSurveyStep> {
         backgroundColor: ColorPalette.bittersweet,
       );
     } else {
-      widget.onSubmit(null);
+      widget.onSubmit();
     }
   }
 

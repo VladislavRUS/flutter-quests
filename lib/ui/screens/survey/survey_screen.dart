@@ -32,7 +32,7 @@ class _SurveyScreenState extends State<SurveyScreen> {
     _surveyStore = context.read<RootStore>().surveyStore;
   }
 
-  void _onSubmit(BuildContext context, AnswerModel? answer) {
+  void _onSubmit(BuildContext context, [AnswerModel? answer]) {
     final currentStep = _surveyStore.getStepById(widget.stepId)!;
 
     final nextStep = _surveyStore.submit(currentStep, answer);
@@ -62,7 +62,7 @@ class _SurveyScreenState extends State<SurveyScreen> {
       body: SafeArea(
         child: SurveyStep(
           step: step!,
-          onSubmit: (answer) => _onSubmit(context, answer),
+          onSubmit: ([answer]) => _onSubmit(context, answer),
         ),
       ),
     );
