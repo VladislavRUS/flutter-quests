@@ -6,6 +6,7 @@ class Assets {
   static const celebratePerson = 'assets/images/celebrate_person.svg';
   static const ellipse = 'assets/images/ellipse.svg';
   static const cloud = 'assets/images/cloud.svg';
+  static const cat = 'assets/images/cat.png';
 
   // Icons
   static const dismissIcon = 'assets/icons/dismiss.svg';
