@@ -55,6 +55,12 @@ class _SelectSurveyStepState extends State<SelectSurveyStep> {
         'Пожалуйста, выберите ответ',
         backgroundColor: ColorPalette.bittersweet,
       );
+    } else if (!_value!.isCorrect) {
+      showSnackBar(
+        context,
+        'Неправильный ответ',
+        backgroundColor: ColorPalette.bittersweet,
+      );
     } else {
       final answer = SelectAnswerModel(
         stepId: widget.step.id!,
