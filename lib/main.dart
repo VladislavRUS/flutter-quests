@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tap_canvas/tap_canvas.dart';
 
 import 'core/routing/app_router.dart';
 import 'data/store/root/root_store.dart';
@@ -23,9 +24,11 @@ class MyApp extends StatelessWidget {
         Provider.value(value: _rootStore),
         ChangeNotifierProvider.value(value: _appRouter),
       ],
-      child: MaterialApp.router(
-        routerDelegate: _appRouter.delegate(),
-        routeInformationParser: _appRouter.defaultRouteParser(),
+      child: TapCanvas(
+        child: MaterialApp.router(
+          routerDelegate: _appRouter.delegate(),
+          routeInformationParser: _appRouter.defaultRouteParser(),
+        ),
       ),
     );
   }
