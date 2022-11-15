@@ -16,17 +16,29 @@ class SelectBottomSheet<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Material(
-        child: ListView.builder(
-          shrinkWrap: true,
-          controller: ModalScrollController.of(context),
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          itemCount: options.length,
-          itemBuilder: (context, index) {
-            final option = options[index];
+        child: options.isEmpty
+            ? const Padding(
+                padding: EdgeInsets.all(24),
+                child: Text(
+                  'Нет доступных опций',
+                  style: TextStyle(
+                    fontSize: 19,
+                    fontWeight: FontWeight.w500,
+                    color: ColorPalette.grayChateau,
+                  ),
+                ),
+              )
+            : ListView.builder(
+                shrinkWrap: true,
+                controller: ModalScrollController.of(context),
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                itemCount: options.length,
+                itemBuilder: (context, index) {
+                  final option = options[index];
 
-            return _buildOption(context, option);
-          },
-        ),
+                  return _buildOption(context, option);
+                },
+              ),
       ),
     );
   }

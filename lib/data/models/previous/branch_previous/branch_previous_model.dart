@@ -7,7 +7,5 @@ class BranchPreviousModel = BranchPreviousModelBase with _$BranchPreviousModel;
 
 abstract class BranchPreviousModelBase extends PreviousModel with Store {
   @observable
-  String? stepId;
-  @observable
   String? optionId;
 }

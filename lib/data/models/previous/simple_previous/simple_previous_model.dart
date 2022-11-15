@@ -5,7 +5,4 @@ part 'simple_previous_model.g.dart';
 
 class SimplePreviousModel = SimplePreviousModelBase with _$SimplePreviousModel;
 
-abstract class SimplePreviousModelBase extends PreviousModel with Store {
-  @observable
-  String? stepId;
-}
+abstract class SimplePreviousModelBase extends PreviousModel with Store {}

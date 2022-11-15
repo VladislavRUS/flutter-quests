@@ -19,8 +19,7 @@ class StepMapper {
     final json = <String, dynamic>{
       'id': step.id,
       'title': step.title,
-      'previous':
-          step.previous != null ? PreviousMapper.toJson(step.previous!) : null,
+      'previous': PreviousMapper.toJson(step.previous),
     };
 
     json['type'] = describeEnum(step.type);
@@ -90,9 +89,7 @@ class StepMapper {
 
     step.id = json['id'];
     step.title = json['title'];
-    step.previous = json['previous'] != null
-        ? PreviousMapper.fromJson(json['previous'])
-        : null;
+    step.previous = PreviousMapper.fromJson(json['previous']);
 
     return step;
   }

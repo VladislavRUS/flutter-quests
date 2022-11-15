@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_quests/core/routing/app_router.dart';
 import 'package:flutter_quests/core/routing/app_routes.dart';
 import 'package:flutter_quests/core/theme/color_palette.dart';
+import 'package:flutter_quests/core/utils/show_snackbar.dart';
 import 'package:flutter_quests/data/store/root/root_store.dart';
 import 'package:flutter_quests/ui/screens/create_quest/no_steps_placeholder/no_steps_placeholder.dart';
 import 'package:flutter_quests/ui/screens/create_quest/quest_tree/quest_tree.dart';
@@ -23,8 +24,23 @@ class CreateQuestScreen extends StatelessWidget {
     final appRouter = context.read<AppRouter>();
 
     final rootStore = context.read<RootStore>();
+
     final questsStore = rootStore.questsStore;
     final questStore = rootStore.questStore;
+
+    final quest = questStore.quest!;
+
+    final validationError = quest.validationError;
+
+    if (validationError != null) {
+      showSnackBar(
+        context,
+        validationError,
+        backgroundColor: ColorPalette.bittersweet,
+      );
+
+      return;
+    }
 
     await questsStore.saveQuest(questStore.quest!);
 

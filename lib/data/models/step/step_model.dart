@@ -18,7 +18,7 @@ abstract class StepModelBase with Store {
   @observable
   String title = '';
   @observable
-  PreviousModel? previous = SimplePreviousModel();
+  PreviousModel previous = SimplePreviousModel();
 
   @computed
   bool get isNew => id == null;

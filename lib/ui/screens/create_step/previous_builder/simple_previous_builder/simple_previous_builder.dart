@@ -22,20 +22,31 @@ class SimplePreviousBuilder extends StatelessWidget {
     previous.stepId = step.id;
   }
 
+  List<StepModel> _getAvailableSteps(
+      List<StepModel> steps, StepModel currentStep) {
+    return steps.where((step) {
+      final stepIsNotTheSame = step.id != currentStep.id;
+
+      final stepIsNotPrevious = (step.previous.stepId == null ||
+          step.previous.stepId != null &&
+              step.previous.stepId != currentStep.id);
+
+      return stepIsNotTheSame && stepIsNotPrevious;
+    }).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final questStore = context.read<RootStore>().questStore;
+
     return Observer(builder: (_) {
-      final questStore = context.read<RootStore>().questStore;
       final quest = questStore.quest!;
 
       final previousStep =
           previous.stepId != null ? quest.getStepById(previous.stepId!) : null;
 
       final currentStep = context.read<RootStore>().stepStore.step;
-
-      final steps = quest.steps
-          .where((element) => element.id != currentStep?.id)
-          .toList();
+      final steps = _getAvailableSteps(quest.steps, currentStep!);
 
       return CustomSelectField(
         hint: 'Предыдущий шаг',
