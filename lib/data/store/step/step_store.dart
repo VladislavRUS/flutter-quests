@@ -4,6 +4,7 @@ import 'package:flutter_quests/data/enums/step_type.dart';
 import 'package:flutter_quests/data/models/option/option_model.dart';
 import 'package:flutter_quests/data/models/previous/branch_previous/branch_previous_model.dart';
 import 'package:flutter_quests/data/models/previous/simple_previous/simple_previous_model.dart';
+import 'package:flutter_quests/data/models/step/geolocation_step/geolocation_step_model.dart';
 import 'package:flutter_quests/data/models/step/select_step/select_step_model.dart';
 import 'package:flutter_quests/data/models/step/slide_step/slide_step_model.dart';
 import 'package:flutter_quests/data/models/step/step_model.dart';
@@ -43,6 +44,9 @@ abstract class StepStoreBase with Store {
         break;
       case StepType.slide:
         step = SlideStepModel();
+        break;
+      case StepType.geolocation:
+        step = GeolocationStepModel();
         break;
       default:
         step = null;

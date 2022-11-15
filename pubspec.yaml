@@ -48,6 +48,9 @@ dependencies:
   shared_preferences: ^2.0.15
   translit: ^2.0.0
   flutter_archive: ^5.0.0
+  flutter_map: ^3.0.0
+  latlong2: ^0.8.1
+  geolocator: ^9.0.2
 
 dev_dependencies:
   flutter_test:

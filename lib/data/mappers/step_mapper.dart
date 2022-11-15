@@ -7,10 +7,12 @@ import 'package:flutter_quests/data/mappers/previous_mapper.dart';
 import 'package:flutter_quests/data/mappers/slide_mapper.dart';
 import 'package:flutter_quests/data/models/hint/hint_model.dart';
 import 'package:flutter_quests/data/models/slide/slide_model.dart';
+import 'package:flutter_quests/data/models/step/geolocation_step/geolocation_step_model.dart';
 import 'package:flutter_quests/data/models/step/select_step/select_step_model.dart';
 import 'package:flutter_quests/data/models/step/slide_step/slide_step_model.dart';
 import 'package:flutter_quests/data/models/step/step_model.dart';
 import 'package:flutter_quests/data/models/step/text_step/text_step_model.dart';
+import 'package:latlong2/latlong.dart';
 
 class StepMapper {
   static Map<String, dynamic> toJson(StepModel step) {
@@ -29,6 +31,8 @@ class StepMapper {
       json.addAll(_selectStepToJson(step));
     } else if (step is SlideStepModel) {
       json.addAll(_slideStepToJson(step));
+    } else if (step is GeolocationStepModel) {
+      json.addAll(_geolocationStepToJson(step));
     }
 
     return json;
@@ -55,6 +59,14 @@ class StepMapper {
     };
   }
 
+  static Map<String, dynamic> _geolocationStepToJson(
+      GeolocationStepModel step) {
+    return {
+      'latitude': step.latLng!.latitude,
+      'longitude': step.latLng!.longitude,
+    };
+  }
+
   static StepModel fromJson(Map<String, dynamic> json) {
     final type = enumFromString(StepType.values, json['type']);
     StepModel step;
@@ -68,6 +80,9 @@ class StepMapper {
         break;
       case StepType.slide:
         step = _slideStepFromJson(json);
+        break;
+      case StepType.geolocation:
+        step = _geolocationStepFromJson(json);
         break;
       default:
         throw Exception('Not supported type');
@@ -117,5 +132,14 @@ class StepMapper {
     );
 
     return slideStep;
+  }
+
+  static GeolocationStepModel _geolocationStepFromJson(
+      Map<String, dynamic> json) {
+    final geolocationStep = GeolocationStepModel();
+
+    geolocationStep.latLng = LatLng(json['latitude'], json['longitude']);
+
+    return geolocationStep;
   }
 }

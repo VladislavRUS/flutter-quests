@@ -49,5 +49,9 @@
 	<true/>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Необходим доступ к библиотеке изображений</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+    <string>Необходим доступ к местоположению, когда приложение открыто</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>Необходим доступ к местоположению, когда приложение в фоне</string>
 </dict>
 </plist>

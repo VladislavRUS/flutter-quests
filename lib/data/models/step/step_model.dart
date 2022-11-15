@@ -1,6 +1,7 @@
 import 'package:flutter_quests/data/enums/step_type.dart';
 import 'package:flutter_quests/data/models/previous/previous_model.dart';
 import 'package:flutter_quests/data/models/previous/simple_previous/simple_previous_model.dart';
+import 'package:flutter_quests/data/models/step/geolocation_step/geolocation_step_model.dart';
 import 'package:flutter_quests/data/models/step/select_step/select_step_model.dart';
 import 'package:flutter_quests/data/models/step/slide_step/slide_step_model.dart';
 import 'package:mobx/mobx.dart';
@@ -36,6 +37,8 @@ extension StepTypeExtension on StepModel {
       return StepType.select;
     } else if (this is SlideStepModel) {
       return StepType.slide;
+    } else if (this is GeolocationStepModel) {
+      return StepType.geolocation;
     }
 
     throw Exception('Unsupported type');

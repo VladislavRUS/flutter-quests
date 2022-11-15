@@ -2,6 +2,7 @@ enum StepType {
   text,
   select,
   slide,
+  geolocation,
 }
 
 extension StepTypeDisplayString on StepType {
@@ -13,6 +14,8 @@ extension StepTypeDisplayString on StepType {
         return 'Выбор ответа';
       case StepType.slide:
         return 'Слайды';
+      case StepType.geolocation:
+        return 'Геолокация';
     }
   }
 }
