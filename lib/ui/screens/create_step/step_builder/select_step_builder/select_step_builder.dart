@@ -5,12 +5,15 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_quests/core/constants/ui.dart';
 import 'package:flutter_quests/core/theme/color_palette.dart';
 import 'package:flutter_quests/core/utils/show_snackbar.dart';
+import 'package:flutter_quests/data/models/option/option_model.dart';
 import 'package:flutter_quests/data/models/step/select_step/select_step_model.dart';
+import 'package:flutter_quests/data/store/root/root_store.dart';
 import 'package:flutter_quests/ui/screens/create_step/step_builder/select_step_builder/create_option_dialog/create_option_dialog.dart';
 import 'package:flutter_quests/ui/screens/create_step/step_builder/select_step_builder/select_option_item/select_option_item.dart';
 import 'package:flutter_quests/ui/widgets/custom_button/custom_button.dart';
 import 'package:flutter_quests/ui/widgets/custom_text_field/custom_text_field.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:provider/provider.dart';
 
 class SelectStepBuilder extends StatelessWidget {
   final SelectStepModel step;
@@ -41,6 +44,14 @@ class SelectStepBuilder extends StatelessWidget {
     }
 
     step.onAddOption(optionText);
+  }
+
+  void _onDeleteOption(BuildContext context, OptionModel option) {
+    final questsStore = context.read<RootStore>().questStore;
+
+    questsStore.clearStepsWithOption(option);
+
+    step.onDeleteOption(option);
   }
 
   @override
@@ -77,7 +88,7 @@ class SelectStepBuilder extends StatelessWidget {
                       onTap: (_) => option.onToggleCorrect(),
                       option: option,
                       isCorrect: option.isCorrect,
-                      onDelete: step.onDeleteOption,
+                      onDelete: (option) => _onDeleteOption(context, option),
                     ),
                   );
                 },

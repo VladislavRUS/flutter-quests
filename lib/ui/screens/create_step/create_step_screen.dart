@@ -68,7 +68,7 @@ class _CreateStepScreenState extends State<CreateStepScreen> {
 
   void _onDelete(BuildContext context) {
     final stepStore = context.read<RootStore>().stepStore;
-    stepStore.onRemoveStep();
+    stepStore.onRemoveCurrentStep();
 
     Navigator.of(context).pop();
   }
