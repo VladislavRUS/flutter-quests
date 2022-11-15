@@ -96,47 +96,48 @@ class _CreateStepScreenState extends State<CreateStepScreen> {
             final previous = step?.previous;
             final questHasSteps = _questStore.quest!.steps.isNotEmpty;
 
-            return Stack(
-              fit: StackFit.expand,
+            return Column(
               children: [
-                SingleChildScrollView(
-                  padding: const EdgeInsets.all(24),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      if (step == null || step.isNew)
-                        CustomSelectField(
-                          hint: 'Тип шага',
-                          placeholder: 'Выберите тип шага',
-                          value: step?.type,
-                          options: StepType.values,
-                          buildOption: (type) => type.displayString,
-                          onChanged: _stepStore.onStepTypeSelected,
-                        ),
-                      const SizedBox(
-                        height: UI.formFieldSpacing,
-                      ),
-                      if (step != null) ...[
-                        StepBuilder(step: step),
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.all(24),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        if (step == null || step.isNew)
+                          CustomSelectField(
+                            hint: 'Тип шага',
+                            placeholder: 'Выберите тип шага',
+                            value: step?.type,
+                            options: StepType.values,
+                            buildOption: (type) => type.displayString,
+                            onChanged: _stepStore.onStepTypeSelected,
+                          ),
                         const SizedBox(
                           height: UI.formFieldSpacing,
                         ),
-                        if (questHasSteps) ...[
-                          CustomRadio(
-                            hint: 'Тип предыдущего шага',
-                            value: previous?.type,
-                            buildOption: (type) => type.displayString,
-                            options: PreviousType.values,
-                            onOptionTap: _stepStore.onPreviousTypeSelected,
-                          ),
+                        if (step != null) ...[
+                          StepBuilder(step: step),
                           const SizedBox(
                             height: UI.formFieldSpacing,
                           ),
-                          if (previous != null)
-                            PreviousBuilder(previous: previous),
-                        ]
+                          if (questHasSteps) ...[
+                            CustomRadio(
+                              hint: 'Тип предыдущего шага',
+                              value: previous?.type,
+                              buildOption: (type) => type.displayString,
+                              options: PreviousType.values,
+                              onOptionTap: _stepStore.onPreviousTypeSelected,
+                            ),
+                            const SizedBox(
+                              height: UI.formFieldSpacing,
+                            ),
+                            if (previous != null)
+                              PreviousBuilder(previous: previous),
+                          ]
+                        ],
                       ],
-                    ],
+                    ),
                   ),
                 ),
                 KeyboardVisibilityBuilder(builder: (_, keyboardVisible) {
@@ -144,12 +145,10 @@ class _CreateStepScreenState extends State<CreateStepScreen> {
                     return const SizedBox.shrink();
                   }
 
-                  return Positioned(
-                    left: 16,
-                    right: 16,
-                    bottom: 0,
-                    child: Observer(
-                      builder: (_) => CustomDisabled(
+                  return Observer(
+                    builder: (_) => Padding(
+                      padding: const EdgeInsets.fromLTRB(24, 0, 24, 24),
+                      child: CustomDisabled(
                         disabled: step.title.isEmpty,
                         child: CustomButton(
                           text: 'Сохранить',

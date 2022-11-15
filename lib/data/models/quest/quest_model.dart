@@ -9,10 +9,12 @@ part 'quest_model.g.dart';
 class QuestModel = QuestModelBase with _$QuestModel;
 
 abstract class QuestModelBase with Store {
+  final String id;
   final String title;
   final String description;
 
   QuestModelBase({
+    required this.id,
     required this.title,
     required this.description,
   });

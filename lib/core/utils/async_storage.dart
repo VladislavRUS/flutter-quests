@@ -1,7 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AsyncStorage {
-  static const _storageVersion = 'v5';
+  static const _storageVersion = 'v8';
 
   static String _makeKey(String key) {
     return '$_storageVersion/$key';

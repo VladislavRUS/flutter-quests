@@ -23,6 +23,10 @@ class BranchPreviousBuilder extends StatelessWidget {
 
   void _onOptionSelected(
       BuildContext context, StepModel step, OptionModel option) {
+    if (option.id == previous.optionId) {
+      return;
+    }
+
     final stepStore = context.read<RootStore>().stepStore;
 
     stepStore.clearBranchPreviousForStep(step, option);
@@ -69,7 +73,7 @@ class BranchPreviousBuilder extends StatelessWidget {
               hint: 'Ответ',
               placeholder: 'Выберите ответ',
               value: previousOption,
-              options: previousStep.options,
+              options: previousStep.correctOptions,
               buildOption: (option) => option.text,
               onChanged: (option) =>
                   _onOptionSelected(context, previousStep, option),

@@ -20,43 +20,37 @@ class SurveyStep extends StatelessWidget {
     required this.onSubmit,
   }) : super(key: key);
 
+  Widget get _step {
+    if (step is TextStepModel) {
+      return TextSurveyStep(
+        step: step as TextStepModel,
+        onSubmit: onSubmit,
+      );
+    } else if (step is SelectStepModel) {
+      return SelectSurveyStep(
+        step: step as SelectStepModel,
+        onSubmit: onSubmit,
+      );
+    } else if (step is SlideStepModel) {
+      return SlideSurveyStep(
+        step: step as SlideStepModel,
+        onSubmit: onSubmit,
+      );
+    } else if (step is GeolocationStepModel) {
+      return GeolocationSurveyStep(
+        step: step as GeolocationStepModel,
+        onSubmit: onSubmit,
+      );
+    } else {
+      return Container();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (step is TextStepModel)
-            Expanded(
-              child: TextSurveyStep(
-                step: step as TextStepModel,
-                onSubmit: onSubmit,
-              ),
-            ),
-          if (step is SelectStepModel)
-            Expanded(
-              child: SelectSurveyStep(
-                step: step as SelectStepModel,
-                onSubmit: onSubmit,
-              ),
-            ),
-          if (step is SlideStepModel)
-            Expanded(
-              child: SlideSurveyStep(
-                step: step as SlideStepModel,
-                onSubmit: onSubmit,
-              ),
-            ),
-          if (step is GeolocationStepModel)
-            Expanded(
-              child: GeolocationSurveyStep(
-                step: step as GeolocationStepModel,
-                onSubmit: onSubmit,
-              ),
-            ),
-        ],
-      ),
+      child: _step,
     );
   }
 }

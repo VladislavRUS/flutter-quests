@@ -4,6 +4,7 @@ import 'package:flutter_quests/core/routing/app_router.dart';
 import 'package:flutter_quests/core/routing/app_routes.dart';
 import 'package:flutter_quests/core/theme/color_palette.dart';
 import 'package:flutter_quests/data/models/answer/answer_model.dart';
+import 'package:flutter_quests/data/models/step/step_model.dart';
 import 'package:flutter_quests/data/store/root/root_store.dart';
 import 'package:flutter_quests/data/store/survey/survey_store.dart';
 import 'package:flutter_quests/ui/screens/survey/survey_step/survey_step.dart';
@@ -32,9 +33,8 @@ class _SurveyScreenState extends State<SurveyScreen> {
     _surveyStore = context.read<RootStore>().surveyStore;
   }
 
-  void _onSubmit(BuildContext context, [AnswerModel? answer]) {
-    final currentStep = _surveyStore.getStepById(widget.stepId)!;
-
+  void _onSubmit(BuildContext context, StepModel currentStep,
+      [AnswerModel? answer]) {
     final nextStep = _surveyStore.submit(currentStep, answer);
 
     final appRouter = context.read<AppRouter>();
@@ -52,17 +52,18 @@ class _SurveyScreenState extends State<SurveyScreen> {
   @override
   Widget build(BuildContext context) {
     final surveyStore = context.read<RootStore>().surveyStore;
-    final step = surveyStore.getStepById(widget.stepId);
+
+    final currentStep = surveyStore.getStepById(widget.stepId);
 
     return Scaffold(
       backgroundColor: ColorPalette.white,
       appBar: CustomAppBar(
-        title: step?.title ?? '-',
+        title: currentStep?.title ?? '-',
       ),
       body: SafeArea(
         child: SurveyStep(
-          step: step!,
-          onSubmit: ([answer]) => _onSubmit(context, answer),
+          step: currentStep!,
+          onSubmit: ([answer]) => _onSubmit(context, currentStep, answer),
         ),
       ),
     );

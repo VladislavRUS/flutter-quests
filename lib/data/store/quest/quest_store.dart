@@ -1,3 +1,4 @@
+import 'package:flutter_quests/core/utils/get_id.dart';
 import 'package:flutter_quests/data/models/quest/quest_model.dart';
 import 'package:flutter_quests/data/models/step/step_model.dart';
 import 'package:flutter_quests/data/store/root/root_store.dart';
@@ -18,6 +19,7 @@ abstract class QuestStoreBase with Store {
   @action
   void create(String title, String description) {
     quest = QuestModel(
+      id: getId(),
       title: title,
       description: description,
     );

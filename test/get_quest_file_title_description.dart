@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() async {
   test('Correctly get quest file title and description', () {
     final quest = QuestModel(
+      id: 'id',
       title: 'Название квеста',
       description: 'Описание квеста',
     );

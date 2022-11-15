@@ -11,13 +11,16 @@ import 'package:flutter_quests/data/models/previous/branch_previous/branch_previ
 import 'package:flutter_quests/data/models/previous/simple_previous/simple_previous_model.dart';
 import 'package:flutter_quests/data/models/quest/quest_model.dart';
 import 'package:flutter_quests/data/models/slide/slide_model.dart';
+import 'package:flutter_quests/data/models/step/geolocation_step/geolocation_step_model.dart';
 import 'package:flutter_quests/data/models/step/select_step/select_step_model.dart';
 import 'package:flutter_quests/data/models/step/slide_step/slide_step_model.dart';
 import 'package:flutter_quests/data/models/step/text_step/text_step_model.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:latlong2/latlong.dart';
 
 void main() async {
   final testJson = {
+    'id': 'test_quest_id',
     'title': 'test_quest',
     'description': 'test_description',
     'steps': [
@@ -75,16 +78,28 @@ void main() async {
             'images': [
               {
                 'id': 'image_id',
-                'data': 'image_data',
+                'path': 'image_path',
               }
             ],
           }
         ],
+      },
+      {
+        'id': 'geolocation_id',
+        'title': 'geolocation_title',
+        'previous': {
+          'type': describeEnum(PreviousType.simple),
+          'stepId': 'geolocation_previous',
+        },
+        'type': describeEnum(StepType.geolocation),
+        'latitude': 0.0,
+        'longitude': 0.0,
       }
     ]
   };
 
   final testQuest = QuestModel(
+    id: 'test_quest_id',
     title: 'test_quest',
     description: 'test_description',
   );
@@ -141,7 +156,7 @@ void main() async {
   final slide = SlideModel();
   slide.text = 'slide_text';
 
-  final slideImage = ImageModel(id: 'image_id', path: 'image_data');
+  final slideImage = ImageModel(id: 'image_id', path: 'image_path');
   slide.images.add(slideImage);
 
   slideStep.slides.add(slide);
@@ -153,6 +168,19 @@ void main() async {
   slideStep.previous = slidePreviousModel;
 
   testQuest.steps.add(slideStep);
+
+  // Geolocation step
+  final geolocationStep = GeolocationStepModel();
+  geolocationStep.id = 'geolocation_id';
+  geolocationStep.title = 'geolocation_title';
+  geolocationStep.latLng = LatLng(0, 0);
+
+  final geolocationPreviousModel = SimplePreviousModel();
+  geolocationPreviousModel.stepId = 'geolocation_previous';
+
+  geolocationStep.previous = geolocationPreviousModel;
+
+  testQuest.steps.add(geolocationStep);
 
   test('Correctly converting to json', () {
     final expectedJsonString = jsonEncode(testJson);
