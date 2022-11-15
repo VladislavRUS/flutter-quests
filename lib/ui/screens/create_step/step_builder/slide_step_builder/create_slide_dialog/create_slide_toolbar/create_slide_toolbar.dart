@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_quests/core/constants/assets.dart';
 import 'package:flutter_quests/core/theme/color_palette.dart';
 import 'package:flutter_quests/core/utils/get_id.dart';
-import 'package:flutter_quests/core/utils/write_demo_simulator_image.dart';
+import 'package:flutter_quests/core/utils/write_asset_file.dart';
 import 'package:flutter_quests/data/models/image/image_model.dart';
 import 'package:flutter_quests/ui/widgets/custom_disabled/custom_disabled.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -52,7 +52,8 @@ class _CreateSlideToolbarState extends State<CreateSlideToolbar> {
         ),
       );
 
-      final path = await writeDemoSimulatorImage();
+      const demoImageName = 'cat.png';
+      final path = await writeAssetFile(Assets.cat, demoImageName);
 
       files.add(File(path));
     } else {

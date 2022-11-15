@@ -8,6 +8,14 @@ class Assets {
   static const cloud = 'assets/images/cloud.svg';
   static const cat = 'assets/images/cat.png';
 
+  // Demo
+  static const mars1 = 'assets/demo/mars_1.png';
+  static const mars2 = 'assets/demo/mars_2.png';
+  static const mars3 = 'assets/demo/mars_3.png';
+  static const mars4 = 'assets/demo/mars_4.png';
+  static const shark = 'assets/demo/shark.png';
+  static const spaceship = 'assets/demo/spaceship.png';
+
   // Icons
   static const dismissIcon = 'assets/icons/dismiss.svg';
   static const removeIcon = 'assets/icons/remove.svg';

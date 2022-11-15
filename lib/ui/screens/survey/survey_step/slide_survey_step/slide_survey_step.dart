@@ -72,11 +72,13 @@ class _SlideSurveyStepState extends State<SlideSurveyStep> {
           Expanded(
             child: PageView(
               controller: _controller,
+              padEnds: false,
               onPageChanged: _onPageChanged,
               children: widget.step.slides
-                  .map(
-                    (slide) => SlideItem(slide: slide),
-                  )
+                  .map((slide) => Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: SlideItem(slide: slide),
+                      ))
                   .toList(),
             ),
           ),

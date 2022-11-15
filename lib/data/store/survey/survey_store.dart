@@ -32,6 +32,7 @@ abstract class SurveyStoreBase with Store {
     quest = value;
 
     answers.clear();
+    answeredStepIds.clear();
   }
 
   @action
