@@ -12,7 +12,7 @@ class AsyncStorage {
 
     final prefs = await SharedPreferences.getInstance();
 
-    prefs.setStringList(storageKey, list);
+    await prefs.setStringList(storageKey, list);
   }
 
   static Future<void> addToStringList(String key, String value) async {
