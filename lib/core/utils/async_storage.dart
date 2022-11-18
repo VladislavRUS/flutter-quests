@@ -34,4 +34,20 @@ class AsyncStorage {
 
     return prefs.getStringList(storageKey);
   }
+
+  static Future<void> setBool(String key, bool value) async {
+    final storageKey = _makeKey(key);
+
+    final prefs = await SharedPreferences.getInstance();
+
+    await prefs.setBool(storageKey, value);
+  }
+
+  static Future<bool?> getBool(String key) async {
+    final storageKey = _makeKey(key);
+
+    final prefs = await SharedPreferences.getInstance();
+
+    return prefs.getBool(storageKey);
+  }
 }
