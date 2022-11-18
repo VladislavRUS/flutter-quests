@@ -2,9 +2,9 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quests/core/constants/assets.dart';
+import 'package:flutter_quests/core/constants/ui.dart';
 import 'package:flutter_quests/core/theme/color_palette.dart';
 import 'package:flutter_quests/core/utils/get_id.dart';
-import 'package:flutter_quests/core/utils/write_asset_file.dart';
 import 'package:flutter_quests/data/models/image/image_model.dart';
 import 'package:flutter_quests/ui/widgets/custom_disabled/custom_disabled.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -32,14 +32,28 @@ class _CreateSlideToolbarState extends State<CreateSlideToolbar> {
   void _onAddImage() async {
     List<File> files = [];
 
-    if (Platform.isIOS && !(await _deviceInfo.iosInfo).isPhysicalDevice) {
+    final isPhysicalDevice = (await _deviceInfo.iosInfo).isPhysicalDevice;
+
+    if (!isPhysicalDevice) {
       await showDialog(
         context: context,
         builder: (_) => AlertDialog(
           title: const Text('Внимание'),
-          content: const Text(
-            'Симулятор iOS не поддерживает выбор картинок через плагин file_picker, '
-            'будет загружена картинка из папки assets.',
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                'Плагин file_picker не поддерживает выбор .heic изображений через симулятор iOS.\n' +
+                    'Например, такое изображение из галереи не добавится:',
+              ),
+              const SizedBox(
+                height: UI.formFieldSpacing,
+              ),
+              Image.asset(
+                Assets.flowersHeic,
+                width: 150,
+              )
+            ],
           ),
           actions: [
             TextButton(
@@ -51,23 +65,18 @@ class _CreateSlideToolbarState extends State<CreateSlideToolbar> {
           ],
         ),
       );
-
-      const demoImageName = 'cat.png';
-      final path = await writeAssetFile(Assets.cat, demoImageName);
-
-      files.add(File(path));
-    } else {
-      final result = await FilePicker.platform.pickFiles(
-        allowMultiple: true,
-        type: FileType.image,
-      );
-
-      if (result == null || result.files.isEmpty) {
-        return;
-      }
-
-      files.addAll(result.paths.map((path) => File(path!)));
     }
+
+    final result = await FilePicker.platform.pickFiles(
+      allowMultiple: true,
+      type: FileType.image,
+    );
+
+    if (result == null || result.files.isEmpty) {
+      return;
+    }
+
+    files.addAll(result.paths.map((path) => File(path!)));
 
     for (final file in files) {
       widget.onImageAdded(

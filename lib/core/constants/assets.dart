@@ -7,6 +7,7 @@ class Assets {
   static const ellipse = 'assets/images/ellipse.svg';
   static const cloud = 'assets/images/cloud.svg';
   static const cat = 'assets/images/cat.png';
+  static const flowersHeic = 'assets/images/flowers_heic.png';
 
   // Demo
   static const mars1 = 'assets/demo/mars_1.png';
